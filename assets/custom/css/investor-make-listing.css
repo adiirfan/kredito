@@ -1,0 +1,187 @@
+/**********************************************LINE TAB**********************************************/
+/* Tabs panel */
+.tabbable-panel {
+  border:1px solid #eee;
+  padding: 10px;
+  background-color: #e5f8fd;
+}
+
+/* Default mode */
+.tabbable-line > .nav-tabs {
+  border: none;
+  margin: 0px;
+}
+.tabbable-line > .nav-tabs > li {
+  margin-right: 2px;
+}
+.tabbable-line > .nav-tabs > li > a {
+  border: 0;
+  margin-right: 0;
+  color: #737373;
+  background-color: inherit;
+}
+.tabbable-line > .nav-tabs > li > a > i {
+  color: #a6a6a6;
+}
+.tabbable-line > .nav-tabs > li.open, .tabbable-line > .nav-tabs > li:hover {
+  border-bottom: 4px solid #7fdef8;
+}
+.tabbable-line > .nav-tabs > li.open > a, .tabbable-line > .nav-tabs > li:hover > a {
+  border: 0;
+  background: none !important;
+  color: #333333;
+}
+.tabbable-line > .nav-tabs > li.open > a > i, .tabbable-line > .nav-tabs > li:hover > a > i {
+  color: #a6a6a6;
+}
+.tabbable-line > .nav-tabs > li.open .dropdown-menu, .tabbable-line > .nav-tabs > li:hover .dropdown-menu {
+  margin-top: 0px;
+}
+.tabbable-line > .nav-tabs > li.active {
+  border-bottom: 4px solid #00BEF2;
+  position: relative;
+  background-color: none !important;
+}
+.tabbable-line > .nav-tabs > li.active > a {
+  border: 0;
+  color: #333333;
+}
+.tabbable-line > .nav-tabs > li.active > a > i {
+  color: #404040;
+}
+.tabbable-line > .tab-content {
+  margin-top: -3px;
+  background-color: inherit;
+  border: 0;
+  border-top: 1px solid #eee;
+  padding: 15px 0;
+}
+.portlet .tabbable-line > .tab-content {
+  padding-bottom: 0;
+}
+
+/**********************************************TABLE STYLE**********************************************/
+.top-border{
+  border-top: 1px solid #5C5C76 !important;
+  width: 10px;
+}
+
+#tbl_loan_list thead tr th {
+  border-bottom: 1px solid #B0B0B0;
+}
+
+.bottom-border{
+  border-bottom: 1px solid #5C5C76 !important;
+  width: 10px;
+}
+
+#tbl_loan_list {
+  border-bottom: 1px solid #B0B0B0; 
+  font-size: 13px !important;
+}
+
+.tabbed_table{
+  table-layout: fixed;
+  width: 100%;
+  height: auto;
+}
+
+.tabbed_table td{
+  overflow: hidden;
+  background-color: #e5f8fd;
+  border: none !important;
+}
+
+.tabbed_table th{
+  background-color: #e5f8fd !important;
+}
+
+/*.repay_table{
+  table-layout: fixed;
+}*/
+
+.repay_table td{
+  background-color: #e5f8fd;
+  border-top: none !important;
+}
+
+.repay_table th{
+  background-color: #e5f8fd;
+  white-space: nowrap;
+}
+
+.repay_table thead th{
+  border-bottom: 1px solid #B0B0B0 !important;
+}
+
+.repay_table tfoot th{
+  border-top: 1px solid #B0B0B0 !important;
+  font-weight: normal !important;
+}
+
+.table_column_right{
+  text-align: right;
+  padding-right: 0 !important;
+}
+
+.table_column_center{
+  text-align: center;
+}
+
+/**********************************************ABOUT COMPANY**********************************************/
+
+.fb-profile img.fb-image-md{
+    z-index: 0;
+    width: 100%;
+    margin-bottom: 10px;
+    max-height: 200px;
+    object-fit: cover;
+    border-top-right-radius: 0.5em;
+    border-top-left-radius: 0.5em;
+}
+
+.fb-image-profile
+{
+    margin: -90px 10px 0px 50px;
+    z-index: 9;
+    width: 20%; 
+}
+
+.fb-profile-text>p{
+  text-align: justify;
+}
+
+@media (max-width:768px)
+{
+    
+  .fb-profile-text>h1{
+      font-weight: 700;
+      font-size:16px;
+  }
+
+  .fb-image-profile
+  {
+      margin: -45px 10px 0px 25px;
+      z-index: 9;
+      width: 20%; 
+  }
+}
+
+/**********************************************POPUP FORM**********************************************/
+
+#popupForm {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin: 0 auto;
+    /*margin-left: -100px;
+    margin-top: -50px;*/
+}
+
+/**********************************************ALERT**********************************************/
+.fixedAlert{
+  position: fixed;
+  top: 60px;
+  left: 15px;
+  width: 200px;
+}
