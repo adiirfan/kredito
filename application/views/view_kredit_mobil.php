@@ -676,18 +676,16 @@ app.controller('customersCtrl', function($scope, $http, $location, $anchorScroll
          data    : $scope.order, //forms user object
          headers : {'Content-Type': undefined}  
          })
-		 
-		window.location = "<?php echo base_url(); ?>konfirmasi-refinance/"+$scope.order.codeloan+"/Konfirmasi";
-		 /*HAndling cek berhasil old
-          .then(function(response) {
-            // successa
-		//	$scope.company_product_id = data.errors.company_product_id;
-			alert('berhasil');
-		}, 
-			function(response) { // optional
-            alert('gagal');
-			});
-			*/
+		 .success(function(data) {
+            if (data.status) {
+              // Showing errors.
+			 
+             window.location = "<?php echo base_url(); ?>konfirmasi-refinance/"+$scope.order.codeloan+"/Konfirmasi";
+            } else {
+             // $scope.message = data.message;
+            }
+          });
+
         };
    
 	
