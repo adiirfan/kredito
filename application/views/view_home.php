@@ -176,7 +176,7 @@
 						<option value="1">Kredit Mobil</option>
 						<option value="2">Kredit Pimilikan Rumah</option>
 						<!--<option value="3">Kredit Motor</option>-->
-						<option value="4">Modal Usaha</option>
+						<option value="4">Multiguna</option>
 						
 						</select>
 						
