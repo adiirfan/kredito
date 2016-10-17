@@ -132,7 +132,6 @@
                                         '<th class="bottom-border">Principal</th>'+
                                         '<th class="bottom-border">Bunga</th>'+
                                         '<th class="bottom-border">Cicilan-perbulan</th>'+
-                                        '<th class="bottom-border">Biaya Flatform</th>'+
                                         '<th class="bottom-border">Total Dibayar</th>'+
                                         '<th class="bottom-border">Status</th>'+
                                     '</thead>'+
@@ -142,8 +141,7 @@
                                             '<th class="top-border"></th>'+
                                             '<th class="top-border"></th>'+
                                             '<th class="top-border"></th>'+
-                                            '<th class="top-border"></th>'+
-                                            '<th class="top-border"></th>'+
+                                            '<th class="top-border"></th>'+  
                                             '<th class="top-border"></th>'+
                                             '<th class="top-border"></th>'+
                                         '</tr>'+
@@ -199,6 +197,7 @@
         } );
 
         $("div.dataTables_CustomFilter").html(
+		
             '<label>Terms:</label>'+
             '<input id="chk_period_all" name="chk_period_all" type="checkbox" class="chk_period" value="" /><label for="chk_period_all">All</label>'+
             '<input id="chk_period_3" name="chk_period_3" type="checkbox" class="chk_period" value="3" /><label for="chk_period_3">3 mths</label>'+
@@ -293,15 +292,18 @@
                         "dataSrc"   : function (json) {
                             var return_data = new Array();
                             for(var i=0;i< json.length; i++){
+								var status;
+								if(json[i].status == 1){
+									status="Pending";
+								}
+								
                                 return_data.push({
                                     'schedule'                   : json[i].schedule,
                                     'outstanding_principal'      : ''+" "+toRp2(json[i].amount),
                                     'monthly_repayment'          : ''+" "+toRp2(json[i].principal),
                                     'principal_portion'          : ''+" "+toRp2(json[i].interest)+' %',
-                                    'interest_portion'           : ''+" "+toRp2(json[i].instalment),
-                                    'platform_contribution'      : '1%',
-                                    'outstanding_principal_after': ''+" "+toRp2(json[i].instalment),
-                                    'status'                     : json[i].status
+                                    'interest_portion'           : ''+" "+toRp2(json[i].instalment),     'outstanding_principal_after': ''+" "+toRp2(json[i].instalment),
+                                    'status'                     : status
                                 })
                             }
                             return return_data;
@@ -343,14 +345,8 @@
                             .reduce( function (a, b) {
                                 return intVal(a) + intVal(b);
                             }, 0 );
-                        total_platform_contribution = api
-                            .column( 5 )
-                            .data()
-                            .reduce( function (a, b) {
-                                return intVal(a) + intVal(b);
-                            }, 0 );
                         total_outstanding_principal_after = api
-                            .column( 6 )
+                            .column( 5 )
                             .data()
                             .reduce( function (a, b) {
                                 return intVal(a) + intVal(b);
@@ -363,16 +359,12 @@
                         $( api.column( 2 ).footer() ).html(
                             'Rp' + ' ' + total_monthly_repayment.toLocaleString()
                         );
-                        $( api.column( 3 ).footer() ).html(
-                            'Rp' + ' ' + total_principal_portion.toLocaleString()
-                        );
+                      
                         $( api.column( 4 ).footer() ).html(
                             'Rp' + ' ' + total_interest_portion.toLocaleString()
                         );
+                      
                         $( api.column( 5 ).footer() ).html(
-                            'Rp' + ' ' + total_platform_contribution.toLocaleString()
-                        );
-                        $( api.column( 6 ).footer() ).html(
                             'Rp' + ' ' + total_outstanding_principal_after.toLocaleString()
                         );
                     },
@@ -400,10 +392,6 @@
                         },
                         {
                             'data' : 'interest_portion',
-                            'class': 'table_column_right'
-                        },
-                        {
-                            'data' : 'platform_contribution',
                             'class': 'table_column_right'
                         },
                         {
@@ -470,7 +458,7 @@
                         }else if (($(text).val().trim() > sisa)){
                             swal({
                                 title             : "Maaf!",
-                                text              : "Nilai bid tidak boleh melebihi"+ sisa,
+                                text              : "Nilai bid tidak boleh melebihi "+ sisa,
                                 type              : "error",
                                 confirmButtonClass: "btn-info"
                             });
@@ -718,7 +706,7 @@ var text='#txt_amount'+nilai;
 					$jumlahbid= $this->model_bid->get_sum_bid($loan_list[$i]->loan_id,1);
 					$jumlahbiduser= $this->model_bid->get_sum_bid($loan_list[$i]->loan_id,1,get_cookie("user_id"));
 					$persentasi=round(($jumlahbid['sum(bid_amount)'] * 100) / $loan_list[$i]->amount);
-					$sisa=($loan_list[$i]->amount - $jumlahbid['sum(bid_amount)']);
+					$sisa=($loan_list[$i]->amount - $jumlahbid['sum(bid_amount)'])-($loan_list[$i]->amount/100*70);
 					?>
 					
                      <tr>
@@ -791,7 +779,7 @@ var text='#txt_amount'+nilai;
                                     else
                                         $progress_percent = 8;
                                 ?>
-                                <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $persentasi; ?>" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $persentasi; ?>%"><?php echo $persentasi; ?>% Complete
+                                <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $persentasi+70; ?>" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $persentasi+70; ?>%"><?php echo $persentasi+70; ?>% Complete
                                 </div>
                             </div>
                         </td>
