@@ -54,12 +54,12 @@
             </li>
 			<li class="<?php if($segment == 'submission-loan' && $this->uri->segment(3) != 'business' && $this->uri->segment(3) != 'detail'){ echo "active treeview";} ?>">
               <a href="<?php echo base_url(); ?>backend/submission-loan">
-                <i class="fa fa-caret-square-o-left"></i> <span>Pinjaman Refinance</span></i>
+                <i class="fa fa-caret-square-o-left"></i> <span>Pinjaman Marketplace</span></i>
               </a>
             </li>
 			<li class="<?php if($this->uri->segment(3) == 'business' || $this->uri->segment(3) == 'detail' ){ echo "active treeview";} ?>">
               <a href="<?php echo base_url(); ?>backend/submission-loan/business">
-                <i class="fa fa-caret-square-o-left"></i> <span>Pinjaman Usaha</span></i>
+                <i class="fa fa-caret-square-o-left"></i> <span>Pinjaman Multiguna</span></i>
               </a>
             </li>
 			<li class="<?php if($segment == 'bid' || $segment == 'car-refinancing' || $segment == 'property-refinancing'){ echo "active treeview";} ?>  ">
