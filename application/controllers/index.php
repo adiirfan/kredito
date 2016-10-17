@@ -74,14 +74,11 @@ class Index extends CI_Controller {
 		$tenor_rumah=$this->input->post('h_waktu_rumah');
 	
 		$pinjaman=preg_replace("/[^0-9]/", "", $this->input->post('h_amount',true));
-		//echo $this->input->post('h_selected_tujuan');
-		//echo $this->input->post('h_waktu_mobil');
-		//echo $this->input->post('h_waktu_usaha');
-		//echo $this->input->post('h_waktu_rumah');
+	
 		
 		if($this->input->post('h_selected_tujuan')=='4'){
 		$data['pinjaman']=preg_replace("/[^0-9]/", "", $this->input->post('h_amount',true));
-		$data['tenor']=$this->input->post('h_waktu_usaha');
+		$data['tenor']=$this->input->post('h_selected_month');
 		$data['tujuan']=$this->input->post('h_selected_tujuan');
 		$data['siapa']=$this->input->post('h_siapa');
 
@@ -243,22 +240,7 @@ class Index extends CI_Controller {
 	
 	$sum_interest_rate=((3 * $product['interest_rate']) * ($loan-($product['down_payment'] / 100 * $loan)))/100;
 	$sum_down_payment=$product['down_payment'] / 100 * $loan;
-	//$this->session->unset_userdata('loan_code');
-	//echo $product['interest_rate'];
-	/*
-		$data = array(
-				
-                'company_product_id' => $this->input->post('company_product_id'),
-				  'loan' => $this->input->post('loan'),
-				'order_down_payment' => $sum_down_payment,
-				'order_payment_month' => $sum_payment_month,
-				'order_sum_interest_rate' => $sum_interest_rate,
-					
-				'order_status' => '0',
-		);
 
-		$this->db->insert('order', $data);
-		*/
 		
 		$data = array(
 				
@@ -277,6 +259,128 @@ class Index extends CI_Controller {
 		$this->db->insert('loan_product', $data);
 		
 		echo json_encode(array("status" => TRUE));
+		
+	}
+	public function add_order_multiple($id=NULL)
+	{ 
+	
+	$_POST = json_decode(file_get_contents('php://input'), true);
+	//echo $_POST['item'][0]['company_product_id'];
+	//echo print_r($_POST);
+	
+		$id=$_POST['item'][0]['company_product_id'];
+		$product = $this->model_credit->select_product($id);
+		$loan=$this->input->post('loan');
+		
+		$sum_payment_month=(($loan-($product['down_payment'] / 100 * $loan))+ (3 * $product['interest_rate'] / 100) *  ($loan-($product['down_payment'] / 100 * $loan)))/ 36 ;
+		
+		$sum_interest_rate=((3 * $product['interest_rate']) * ($loan-($product['down_payment'] / 100 * $loan)))/100;
+		$sum_down_payment=$product['down_payment'] / 100 * $loan;
+			
+			$data_loan = array(
+				
+				'company_product_id' =>$_POST['item'][0]['company_product_id'],
+                'loan_code' => $this->input->post('codeloan'),
+				'loan' => $this->input->post('loan'),
+				'loan_down_payment' => $sum_down_payment,
+				'loan_payment_month' => $sum_payment_month,
+				'loan_sum_interest_rate' => $sum_interest_rate,	
+				'loan_status' => '0',
+				'user_id' => get_cookie("user_id"),
+			);
+			$this->db->insert('loan_product', $data_loan);
+			$loan_id=$this->db->insert_id();
+			
+		
+		///Insert to order (table loan_product and loan_detail)
+		foreach($_POST['item'] as $row){
+			$data_loan_multiple = array(
+				
+				'company_product_id' =>$row['company_product_id'],
+                'loan_id' => $loan_id,
+				
+			);
+			$this->db->insert('loan_product_multiple', $data_loan_multiple);
+				
+			
+			//echo print_r($data_loan);
+		}
+		
+		$data_user = array(
+                'loan_email' => $this->input->post('email'),
+				'loan_name' => $this->input->post('nama'),
+				'loan_phone' => $this->input->post('telp'),
+				'loan_income' => $this->input->post('income'),
+				'loan_id' => $loan_id,
+		);
+		$this->db->insert('loan_detail', $data_user);
+		
+		//echo print_r($data_user);
+		$param["email"] = $this->input->post('email');
+		$param["user_id"] = "0";
+        $this->load->model('model_user');
+        $email_exists = $this->model_user->check($param);
+		$userid=get_cookie("user_id");
+		//echo   $email_exists.$this->input->post('email').$userid.'rr';
+		//condition new or old user 
+		
+		if ($email_exists == null ){
+			 
+			 if(get_cookie("user_id") == null){
+				$param["password"] = "abcd1234";
+				$param["email"] = $this->input->post('email');
+                $param["full_name"] = $this->input->post('nama');
+                $param["user_group"] = "B";
+                $param["salutation_id"] = "0";
+                $param["mobile_phone"] = $this->input->post('telp');
+                $param["company_name"] = "";
+                $param["company_registration"] = "";
+                $param["company_paid_up_capital"] = "0";
+                $param["company_man_power"] = "0";
+                $param["company_revenue"] = "0";
+                $param["investor_type"] = "";
+                $param["loan_id"]="";
+                $param["address"] = "";
+                $param["status"] = "0";
+                $this->load->model("model_user");
+                $return = $this->model_user->adding($param); 
+				$this->load->library('send_mail');
+               // $this->send_mail->new_registration_to_user($return["user_id"]);
+				 $this->load->model("model_loan");
+			//$loan_update=$this->model_loan->get_loan_product_by_code($this->input->post('codeloan'));
+				//foreach($loan_update as $row){
+				$this->db->query("	UPDATE loan_product SET 
+									user_id =".$return["user_id"]." ".
+									"WHERE loan_code='".$this->input->post('codeloan')."'");
+				//}
+				
+				
+				$this->send_mail->multiple_loan_to_user($return["user_id"],$this->input->post('codeloan'),$this->input->post('email'),3);
+			 }
+			
+		}else if($userid != 0){
+			//$this->db->insert('loan_detail', $data);
+			$this->load->library('send_mail');
+         
+			$this->send_mail->multiple_loan_to_user($userid,$this->input->post('codeloan'),$this->input->post('email'),0);
+		
+		}
+		else if($email_exists && $userid != 0){
+			
+			$this->load->library('send_mail');
+         
+			$this->send_mail->multiple_loan_to_user($userid,$this->input->post('codeloan'),$this->input->post('email'),1);
+		
+		}else if($email_exists == 1){
+			
+			$email_exist = $this->model_user->check($param,1);
+			$this->load->library('send_mail');
+			$this->send_mail->multiple_loan_to_user($email_exist->user_id,$this->input->post('codeloan'),$this->input->post('email'),3);
+		}
+		
+		echo json_encode(array("status" => TRUE));
+		
+		
 		
 	}
     public function konfirmasi_refinance($id=NULL,$step=NULL)
@@ -325,7 +429,7 @@ $date = date_create();
 				
                 'loan_id' => $loanid['loan_id'],
 				
-				  'loan_nik' => $this->input->post('loan_nik'),
+				'loan_nik' => $this->input->post('loan_nik'),
 				'loan_name' => $this->input->post('loan_name'),
 				'loan_pod' => $this->input->post('loan_pod'),
 				'loan_bod' => $bod,
@@ -426,6 +530,14 @@ $date = date_create();
         $this->load->view('view_header', $title);
         $this->load->view('succses');
         $this->load->view('view_footer');
+    } 
+	public function tes($kode=null)
+    {
+		$this->load->model('model_loan');
+		
+		$row = $this->model_loan->get_product_by_code('6V2E845777',1);
+		//echo $row->loan_code.'edu';
+		//echo print_r($row);
     }
 	
 	
