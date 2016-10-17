@@ -376,7 +376,7 @@ $config['proxy_ips'] = '';
 //$config['gmail_pwd'] = 'Abcd123$';
 $config['gmail'] = 'no-reply@rajapremi.co.id';
 $config['gmail_pwd'] = 'R@j@pr3m!123';
-$config['gmail_name'] = 'Rajakredit.co.id';
+$config['gmail_name'] = 'Kredito.id';
 $config['email_header'] = "<div style='width:95%;font-size:14px;text-align:left;background-color:#F1F1F1;'>".
             "<BR>".
             "<div style='width:80%;margin: 0px auto 5px auto;padding-top:15px;'>".
@@ -393,7 +393,7 @@ $config['email_footer'] = "<BR><BR><BR>".
             "<span style='font-size:12px;color:#777777'>Untuk mematikan anda dapat terus menerima email dari rajakredit.com, Silahkan tambahkan ".$config['gmail']." ke address book email anda.</span><BR>".
             "<BR>".
             "</div>".
-            "<span style='font-size:12px;color:#777777;float:right'>Copyright © 2016 Rajakredit.co.id</span>".
+            "<span style='font-size:12px;color:#777777;float:right'>Copyright © 2016 Kredito.id</span>".
             "</div>".
             "<BR><BR><BR>".
             "</div>"; 
