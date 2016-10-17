@@ -18,7 +18,7 @@ class Send_mail {
 		$lMessage = 
             "Hai ".$row->full_name.",".
             "<BR><BR>".
-			"Terima kasih telah mendaftar mendaftar di Rajakredit.co.id.".
+			"Terima kasih telah mendaftar mendaftar di Kredito.id.".
 			"Akun Anda hampir siap ! Anda hanya selangkah lagi mengakses akun Rajakredit Anda. ".
             "<BR><BR>".
             "Silahkan klik link tersebut untuk memverivikasi akun anda, <a target='_blank' href='".base_url()."admin/activation/".$row->dynamic_code."'>Klik disini</a>.<BR>".
@@ -71,7 +71,7 @@ class Send_mail {
         $lMessage = 
             "Hi ".$row->full_name.",".
             "<BR><BR>".
-          	"Terima kasih telah mendaftar mendaftar di Rajakredit.co.id.".
+          	"Terima kasih telah mendaftar mendaftar di Kredito.id.".
 			"Akun Anda hampir siap ! Anda hanya selangkah lagi mengakses akun Rajakredit Anda. ".
             "<BR><BR>".
            "Silahkan klik link tersebut untuk memverivikasi akun anda, <a target='_blank' href='".base_url()."security/activation/".$row->dynamic_code."'>Aktifkan disini</a>.<BR>".
@@ -79,7 +79,7 @@ class Send_mail {
             "Jika link tersebut tisak bekerja, maka anda dapat menyalin link ini ke browser web Anda<BR>".
             "<a target='_blank' href='".base_url()."security/activation/".$row->dynamic_code."'>".base_url()."security/activation/".$row->dynamic_code."</a>.<BR>";
         
-        $subject = 'Selamat datang di Rajakredit.co.id - Akun anda sudah dibuat';
+        $subject = 'Selamat datang di Kredito.id - Akun anda sudah dibuat';
         $message = $lEmailHeader.$lMessage.$lEmailFooter; 
         $this->send($row->email, $subject, $message);
     }
@@ -111,10 +111,78 @@ class Send_mail {
                  "Jika link tersebut tisak bekerja, maka anda dapat menyalin link ini ke browser web Anda<BR>".
                 "<a target='_blank' href='".base_url()."security/activation/".$row_user->dynamic_code."'>".base_url()."security/activation/".$row_user->dynamic_code."</a>.<BR>";
         
-        $subject = 'Selama datang di Rajakredit.co.id - akun anda telah dibuat';
+        $subject = 'Selama datang di Kredito.id - akun anda telah dibuat';
         $message = $lEmailHeader.$lMessage.$lEmailFooter;
         $this->send($row_user->email, $subject, $message);
     }
+	
+	public function multiple_loan_to_user($user_id,$code_loan,$email,$new=null) 
+    {
+        $ci = get_instance();
+
+        $lEmailHeader = $ci->config->item('email_header');
+        $lEmailFooter = $ci->config->item('email_footer');
+
+       	$ci->load->model('model_loan');
+		$row = $ci->model_loan->get_product_by_code($code_loan,1);
+		
+       // $product = $ci->model_loan->get_loan_product_by_code($code_loan);
+		if($user_id == null){
+			$user_id=$row->user_id;
+		}
+        $ci->load->model('model_user');
+        $row_user = $ci->model_user->get($user_id);
+		
+	
+		if($new == 0){
+		$lMessage = 
+                "Hi ".$row_user->full_name.",".
+                "<BR><BR>".
+				"Pengajuan peminjaman anda telah kami terima. Nomor referensi pinjaman anda adalah <b>".$row->loan_code."</b>".
+              
+                "<BR><BR>".
+                "Kami akan memproses pinjaman anda paling lambat 3 hari kerja";
+                
+        
+        $subject = 'Selama datang di Kredito.id - pengajuan anda berhasil telah kami terima';
+        $message = $lEmailHeader.$lMessage.$lEmailFooter;
+        $this->send($row_user->email, $subject, $message);
+		}else if($new == 1){
+			$lMessage = 
+                "Hi ".$row_user->full_name.",".
+                "<BR><BR>".
+				"Pengajuan peminjaman anda telah kami terima. Nomor referensi pinjaman anda adalah <b>".$row->loan_code."</b>".
+              
+                "<BR><BR>".
+                "Kami akan memproses pinjaman anda paling lambat 3 hari kerja.Silahkan login untuk melihat detail status pengajuan anda";
+                
+        
+        $subject = 'Selama datang di Kredito.id - pengajuan anda berhasil telah kami terima';
+        $message = $lEmailHeader.$lMessage.$lEmailFooter;
+        $this->send($row_user->email, $subject, $message);
+		}else{
+			
+			$lMessage = 
+                "Hi ".$row_user->full_name.",".
+                "<BR><BR>".
+				"Pengajuan peminjaman anda telah kami terima. Nomor referensi pinjaman anda adalah <b>".$row->loan_code."</b>".
+              
+                "<BR><BR>".
+                "Kami akan memproses pinjaman anda paling lambat 3 hari kerja".
+                "<BR><BR>".
+                "Silahkan klik link ini untuk <a target='_blank' href='".base_url()."security/activation/".$row_user->dynamic_code."'>Aktifkan akun anda</a>.<BR>".
+                "<BR>".
+                 "Jika link tersebut tisak bekerja, maka anda dapat menyalin link ini ke browser web Anda<BR>".
+                "<a target='_blank' href='".base_url()."security/activation/".$row_user->dynamic_code."'>".base_url()."security/activation/".$row_user->dynamic_code."</a>.<BR>";
+        
+        $subject = 'Selama datang di Kredito.id - akun anda telah dibuat';
+        $message = $lEmailHeader.$lMessage.$lEmailFooter;
+        $this->send($row_user->email, $subject, $message);
+			
+		}
+    }
+	
+	
 	 public function new_loan_to_olduser($loan_id) 
     {
         $ci = get_instance();
@@ -144,7 +212,7 @@ class Send_mail {
         
         
         
-        $subject = 'Rajakredit.co.id - Pengajuan pinjaman anda telah kami terima';
+        $subject = 'Kredito.id - Pengajuan pinjaman anda telah kami terima';
         $message = $lEmailHeader.$lMessage.$lEmailFooter;
         $this->send($row_user->email, $subject, $message);
     }
@@ -178,7 +246,7 @@ class Send_mail {
         
         
         
-        $subject = 'Rajakredit.co.id - Pengajuan pinjaman anda telah kami terima';
+        $subject = 'Kredito.id - Pengajuan pinjaman anda telah kami terima';
         $message = $lEmailHeader.$lMessage.$lEmailFooter;
         $this->send($row_user->email, $subject, $message);
     }
@@ -206,7 +274,7 @@ class Send_mail {
                 "<BR><BR>".
                 "Abaikan email ini jika anda tidak merasa ingin merubah password anda";
             
-            $subject = 'Rajakredit.co.id: Permintaan ubah password';
+            $subject = 'Kredito.id: Permintaan ubah password';
             $message = $lEmailHeader.$lMessage.$lEmailFooter;
             $this->send($row->email, $subject, $message); 
         }
@@ -329,7 +397,7 @@ class Send_mail {
                 "Silahkan login untuk melihat status pinjaman anda<BR>".
                 "<a target='_blank' href='".base_url()."'>".base_url()."</a>.<BR>";    
         
-        $subject = 'Rajakredit.co.id - Pinjaman anda telah di verifikasi';
+        $subject = 'Kredito.id - Pinjaman anda telah di verifikasi';
 		} else if($status == 7){
 			$lMessage = 
                 "Hi ".$row_user->full_name.",".
@@ -345,7 +413,7 @@ class Send_mail {
                 "Silahkan login untuk melihat status pinjaman anda<BR>".
                 "<a target='_blank' href='".base_url()."'>".base_url()."</a>.<BR>";    
         
-        $subject = 'Rajakredit.co.id - Pinjaman anda telah di verifikasi';
+        $subject = 'Kredito.id - Pinjaman anda telah di verifikasi';
 		}else if($status == 5){
 			$lMessage = 
                 "Hi ".$row_user->full_name.",".
@@ -361,7 +429,7 @@ class Send_mail {
                 "Silahkan login untuk melihat status pinjaman anda<BR>".
                 "<a target='_blank' href='".base_url()."'>".base_url()."</a>.<BR>";    
         
-        $subject = 'Rajakredit.co.id - Pinjaman anda ditolak';
+        $subject = 'Kredito.id - Pinjaman anda ditolak';
 		}
 		else if($status == 8){
 			$lMessage = 
@@ -378,7 +446,7 @@ class Send_mail {
                 "Silahkan login untuk melihat status pinjaman anda<BR>".
                 "<a target='_blank' href='".base_url()."'>".base_url()."</a>.<BR>";    
         
-        $subject = 'Rajakredit.co.id - Pinjaman anda ditolak';
+        $subject = 'Kredito.id - Pinjaman anda ditolak';
 		}
 		
 		
@@ -414,7 +482,7 @@ class Send_mail {
                 "Silahkan login untuk melihat status pinjaman anda<BR>".
                 "<a target='_blank' href='".base_url()."'>".base_url()."</a>.<BR>";    
         
-        $subject = 'Rajakredit.co.id - Pinjaman anda sedang dalam proses';
+        $subject = 'Kredito.id - Pinjaman anda sedang dalam proses';
 		} else if($status == 4){
 			$lMessage = 
                 "Hi ".$row_user->loan_name.",".
@@ -430,7 +498,7 @@ class Send_mail {
                 "Silahkan login untuk melihat status pinjaman anda<BR>".
                 "<a target='_blank' href='".base_url()."'>".base_url()."</a>.<BR>";    
         
-        $subject = 'Rajakredit.co.id - Pinjaman anda berhasil';
+        $subject = 'Kredito.id - Pinjaman anda berhasil';
 		}else if($status == 5){
 			$lMessage = 
                 "Hi ".$row_user->loan_name.",".
@@ -446,7 +514,7 @@ class Send_mail {
                 "Silahkan login untuk melihat status pinjaman anda<BR>".
                 "<a target='_blank' href='".base_url()."'>".base_url()."</a>.<BR>";    
         
-        $subject = 'Rajakredit.co.id - Pinjaman anda ditolak';
+        $subject = 'Kredito.id - Pinjaman anda ditolak';
 		}
 		else if($status == 8){
 			$lMessage = 
@@ -463,7 +531,7 @@ class Send_mail {
                 "Silahkan login untuk melihat status pinjaman anda<BR>".
                 "<a target='_blank' href='".base_url()."'>".base_url()."</a>.<BR>";    
         
-        $subject = 'Rajakredit.co.id - Pinjaman anda ditolak';
+        $subject = 'Kredito.id - Pinjaman anda ditolak';
 		}
 		
 		
@@ -499,7 +567,7 @@ class Send_mail {
                 "Untuk informasi lebih lanjut silahkan hubungi Costumer Service RajaKredit<BR>";
                   
   
-			$subject = 'Rajakredit.co.id - Status Pengajuan Pinjaman Anda';
+			$subject = 'Kredito.id - Status Pengajuan Pinjaman Anda';
 		}else if($status == '2'){
 			
 			$lMessage = 
@@ -513,7 +581,7 @@ class Send_mail {
                 "Untuk informasi lebih lanjut silahkan hubungi Costumer Service RajaKredit<BR>";
                   
   
-			$subject = 'Rajakredit.co.id - Status Pengajuan Pinjaman Anda';
+			$subject = 'Kredito.id - Status Pengajuan Pinjaman Anda';
 			
 			
 		}
@@ -581,7 +649,7 @@ class Send_mail {
         
         
         
-        $subject = 'Rajakredit.co.id - Status anda sebagai investor telah diaktifkan';
+        $subject = 'Kredito.id - Status anda sebagai investor telah diaktifkan';
         $message = $lEmailHeader.$lMessage.$lEmailFooter;
         $this->send($row_user->email, $subject, $message);
     }
@@ -619,7 +687,7 @@ class Send_mail {
         
         
         
-        $subject = 'Rajakredit.co.id - Dana investasi anda telah kami terima';
+        $subject = 'Kredito.id - Dana investasi anda telah kami terima';
         $message = $lEmailHeader.$lMessage.$lEmailFooter;
         $this->send($row_user->email, $subject, $message);
     }
@@ -819,7 +887,7 @@ class Send_mail {
         
         
         
-        $subject = 'Rajakredit.co.id - Konfirmasi BID anda';
+        $subject = 'Kredito.id - Konfirmasi BID anda';
         $message = $lEmailHeader.$lMessage.$lEmailFooter;
         $this->send($row_user->email, $subject, $message);
     }
