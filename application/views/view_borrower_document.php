@@ -65,7 +65,7 @@ https://github.com/blueimp/jQuery-File-Upload
                 <div class="row fileupload-buttonbar">
                     <div class="col-lg-12" style="display:inline-block">
                         <p id="lbl_message_aa" class="alert alert-danger hidden">Silahkan Upload KTP anda</p>
-                        <h4>KTP - <span class="small"></span></h4>
+                        <h4>Kartu Keluarga <span class="small"></span></h4>
                         <span class="btn btn-success fileinput-button longer">
                             <span>Tambah File</span>
                             <i class="glyphicon glyphicon-plus"></i>
@@ -84,7 +84,7 @@ https://github.com/blueimp/jQuery-File-Upload
                 <div class="row fileupload-buttonbar">
                     <div class="col-lg-12" style="display:inline-block">
                         <p id="lbl_message_ma" class="alert alert-danger hidden">Silahkan upload Siup perusahaan</p>
-                        <h4>SIUP</h4>
+                        <h4>BPKB / Surat Rumah / PBB </h4>
                         <span class="btn btn-success fileinput-button longer">
                             <span>Tambah FIle</span>
                             <i class="glyphicon glyphicon-plus"></i>
