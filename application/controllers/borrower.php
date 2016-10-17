@@ -15,29 +15,76 @@ class Borrower extends CI_Controller {
 
      public function option()
     {
-    	$this->create_loan();
+    	
+		
+		if($this->input->post('h_selected_tujuan') != null){
+			$pinjaman=preg_replace("/[^0-9]/", "", $this->input->post('h_amount',true));
+			if($this->input->post('h_selected_tujuan') != '4'){
+			
+			$tenor_mobil=$this->input->post('h_waktu_mobil');
+			$tenor_rumah=$this->input->post('h_waktu_rumah');
+		
+				if($this->input->post('h_selected_tujuan')=='1'){
+					
+					redirect("/kredit-mobil/?tenor=$tenor_mobil&pinjaman=$pinjaman");
+				}
+				else if($this->input->post('h_selected_tujuan')=='2'){
+					
+					redirect("/kredit-pemilikan-rumah/?tenor=$tenor_rumah&pinjaman=$pinjaman");
+				}
+		
+			}else{
+				
+				$this->create_loan();
+				if (get_cookie("user_id") != null)
+				{
+					if (get_cookie("user_group") == "B")
+					{
+						$this->load->model("model_user");
+						$row = $this->model_user->get(get_cookie("user_id"));
 
-    	if (get_cookie("user_id") != null)
-    	{
-    		if (get_cookie("user_group") == "B")
-    		{
-    			$this->load->model("model_user");
-                $row = $this->model_user->get(get_cookie("user_id"));
+						redirect("borrower/application/info");
+					}
+					else
+					{
+						$title['title']="Bukan Peminjam";
+						$this->load->view('view_header',$title);
+						$this->load->view('view_borrower_not');
+						$this->load->view('view_footer');	
+					}
+				}
+				else
+				{
+					redirect("borrower/login");
+				}
+				
+			}
 
-                redirect("borrower/application/info");
-    		}
-    		else
-    		{
-    			$title['title']="Bukan Peminjam";
-				$this->load->view('view_header',$title);
-		        $this->load->view('view_borrower_not');
-		        $this->load->view('view_footer');	
-    		}
-    	}
-    	else
-    	{
-    		redirect("borrower/login");
-    	}
+		}else{
+			
+			$this->create_loan();
+			if (get_cookie("user_id") != null)
+			{
+				if (get_cookie("user_group") == "B")
+				{
+					$this->load->model("model_user");
+					$row = $this->model_user->get(get_cookie("user_id"));
+
+					redirect("borrower/application/info");
+				}
+				else
+				{
+					$title['title']="Bukan Peminjam";
+					$this->load->view('view_header',$title);
+					$this->load->view('view_borrower_not');
+					$this->load->view('view_footer');	
+				}
+			}
+			else
+			{
+				redirect("borrower/login");
+			}
+		}
     }
 
      public function login($pParam=null)
@@ -520,7 +567,7 @@ class Borrower extends CI_Controller {
 			$param["b_company_paid_up_capital"] = $row_user->company_paid_up_capital;
 			$param["b_company_man_power"] = $row_user->company_man_power;
 			$param["b_company_revenue"] = $row_user->company_revenue;
-			$param["amount"] = $this->input->post("h_amount");
+			$param["amount"] = preg_replace("/[^0-9]/", "", $this->input->post('h_amount',true));
 			$param["period"] = $this->input->post("h_selected_month");
 			$param["loan_purpose_id"] = 0;
 			$param["loan_purpose_other"] = "";
@@ -532,8 +579,8 @@ class Borrower extends CI_Controller {
     	$this->load->library("set_cookies");
         $this->set_cookies->setLoanID($data["loan_id"]);
        if($this->input->post("h_amount") != null){
-        $this->set_cookies->setBAmount($this->input->post("h_amount"));
-		$this->set_cookies->setBMonnth($this->input->post("h_selected_month"));
+        $this->set_cookies->setBAmount(preg_replace("/[^0-9]/", "", $this->input->post('h_amount',true)));
+		$this->set_cookies->setBMonnth(preg_replace("/[^0-9]/", "", $this->input->post('h_selected_month',true)));
 		}else{
 		$this->set_cookies->setBAmount('100000000');
 		$this->set_cookies->setBMonnth('3');
