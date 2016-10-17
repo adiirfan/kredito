@@ -10,6 +10,8 @@
 
 	});
 </script>  
+<?php $this->load->library('recaptcha');
+echo $this->recaptcha->getScriptTag();?>
 
 <div class="container">
 	<div class="row">
@@ -40,6 +42,10 @@
 					  <input type="hidden" id="h_user_group" name="h_user_group" value="B" />
 					</div>
 				</div>
+				<?php
+				$this->load->library('recaptcha');
+				echo $this->recaptcha->getWidget();
+				?>
 				<button name="submit" class="btn btn-info center-block longer">Daftar</button>
 			<?php echo form_close();?>
 		</div>

@@ -18,69 +18,92 @@ class Security extends CI_Controller {
     *********************************************************************************/
     public function login($pParam=null)
     {
-        switch ($pParam)
-        {
-            case null:
-            {
-				
-				 if (get_cookie("user_group") == "B")
-                {
-                    //Login success after activation
-                    $this->load->model('model_user');
-                    $row = $this->model_user->get(get_cookie("user_id"));
+       switch ($pParam)
+    	{
+    		case null:
+    		{
+    			$title['title']="Login";
+				$this->load->view('view_header',$title);
+		        $this->load->view('view_login');
+		        $this->load->view('view_footer');
+				$this->load->library(array('form_validation', 'Recaptcha'));
+		        break;
+    		}
+    		case "validation":
+    		{
+    			//$this->load->library("form_validation");
+    			$this->form_validation->set_rules('txt_email', 'Email', 'trim|required|max_length[255]|valid_email');
+    			$this->form_validation->set_rules("txt_password", "Password", "trim|required");
+				 $recaptcha = $this->input->post('g-recaptcha-response');
+				$response = $this->recaptcha->verifyResponse($recaptcha);
 
-                    if ($row->status == 1)
-                    {
-                     //   $this->load->model("model_user");
-                     //   $row = $this->model_user->get(get_cookie("user_id"));
+    			if ($this->form_validation->run() == False || !isset($response['success']) || $response['success'] <> true)
+		        {
+		           $title['title']="Login Peminjam";
+					$this->load->view('view_header',$title);
+			        $this->load->view('view_login');
+			        $this->load->view('view_footer');
+		        }
+		        else
+		        {
+		            $this->load->model("model_user");
+		            $return_user = $this->model_user->login($this->input->post("txt_email"), $this->input->post("txt_password"));
 
-                     //   $this->load->model("model_loan");
-                     //   $row_loan = $this->model_loan->get_by_user_id($row->user_id);
+		            if ($return_user != false)
+		            {
+		            	if ($return_user->user_group == "B")
+		            	{
+		            		$this->load->library("set_cookies");
+			                $this->set_cookies->setUserID($return_user->user_id);
+		                    $this->set_cookies->setEmail($return_user->email);
+		                    $this->set_cookies->setUserGroup($return_user->user_group);
+		                    $this->set_cookies->setFullName($return_user->full_name);
+		                   // $this->set_cookies->setCode($return_user->code);
+		                    $this->set_cookies->setIType("");
 
-                     //   $data["folder_code"] = $row_loan->folder_code;
+		                    if ($this->input->post('chk_remember_me') == "1")
+		                    {
+		                        $this->set_cookies->setREmail($this->input->post("txt_email"));
+		                        $this->set_cookies->setRPassword($this->input->post("txt_password"));
+		                    }
 
-						//$title['title']="Dokumen Peminjam";
-						//$this->load->view('view_header',$title);
-                      //  $this->load->view('view_borrower_document', $data);
-                       // $this->load->view('view_footer');
-					   redirect("/");
-                    }else  if ($row->status == 2)
-                    {
-						//redirect("borrower/application/listproduct");
-						redirect("/");
-					}
-                    else
-                    {
-                       // redirect("borrower/application/list");
-					   redirect("/");
-                    }
-                }  
-                else
-                {
-                    $this->load->model('model_user');
-                    $row = $this->model_user->get(get_cookie("user_id"));
+		                    //$this->update_loan_from_user($return_user->user_id);
 
-                    if ($row->status == 1)
-                    {
-                        //Just activated, continue to submit document
-                        $this->load->model("model_user");
-                        $row = $this->model_user->get(get_cookie("user_id"));
-                        $data["folder_code"] = $row->folder_code;
+			                redirect("borrower/application/list");
+		            	}
+		            	else
+		            	{
+		            		 $this->load->library("set_cookies");
+                            $this->set_cookies->setUserID($return_user->user_id);
+                            $this->set_cookies->setEmail($return_user->email);
+                            $this->set_cookies->setUserGroup($return_user->user_group);
+                            $this->set_cookies->setFullName($return_user->full_name);
+                            $this->set_cookies->setIType($return_user->investor_type);
 
-                        $title['title']="Dokumen Peminjam";
+                            if ($this->input->post('chk_remember_me') == "1")
+                            {
+                                $this->set_cookies->setREmail($this->input->post("txt_email"));
+                                $this->set_cookies->setRPassword($this->input->post("txt_password"));
+                            }
+
+                           // $this->update_investment_from_user($return_user->user_id);
+
+                            redirect("investor/saldo");
+		            	}
+		            }
+		            else
+		            {
+		                $data["pMessage"] = "Email tidak terdaftar, atau password salah";
+						$title['title']="Login Peminjam";
 						$this->load->view('view_header',$title);
-                        $this->load->view('view_investor_document', $data);
-                        $this->load->view('view_footer');
-                    }
-                    else
-                    {
-                        //Don't think the process will route to here, but just to handle it
-                        redirect("borrower/investor/list");
-                    }
-                }
-                //break;
-            }
-            case "check":
+				        $this->load->view('view_borrower_login', $data);
+				        $this->load->view('view_footer');
+		            }
+		        }
+
+    			break;
+    		}
+         case "check":
             {
                 $this->load->model('model_user');
                 $return_user = $this->model_user->login($this->input->post('email'), $this->input->post('password'));
@@ -296,16 +319,20 @@ class Security extends CI_Controller {
 				$this->load->view('view_header',$title);
                 $this->load->view('view_register');
                 $this->load->view('view_footer');
+				$this->load->library(array('form_validation', 'Recaptcha'));
                 break;
             }
             case "add":
             {
-                //$this->load->library('form_validation');
+                $this->load->library('form_validation');
 
                 $this->form_validation->set_rules('txt_full_name', 'Full Name', 'trim|required|max_length[255]');
                 $this->form_validation->set_rules('txt_email', 'Email', 'trim|required|max_length[255]|valid_email|callback_check_email_exists');
+				 $recaptcha = $this->input->post('g-recaptcha-response');
+				$response = $this->recaptcha->verifyResponse($recaptcha);
+				
 
-                if ($this->form_validation->run() == False)
+                if ($this->form_validation->run() == False || !isset($response['success']) || $response['success'] <> true)
                 {
                     $title['title']="Registrasi";
 						$this->load->view('view_header',$title);
@@ -337,10 +364,14 @@ class Security extends CI_Controller {
 
                     $this->load->library('send_mail');
                     $this->send_mail->new_registration_to_user($return["user_id"]);
-
+                    $this->load->library(array('form_validation', 'Recaptcha'));
+					
+					
                     $data["email"] = $this->input->post("txt_email");
+					$data2["captcha"] = $this->recaptcha->getWidget();
 					$title['title']="Registrasi Peminjam";
 					$this->load->view('view_header',$title);
+					
                     $this->load->view('view_register_submit', $data);
                     $this->load->view('view_footer');
                 }
