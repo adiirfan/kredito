@@ -5,7 +5,7 @@
 <!-- process steps -->
 
 <link href="<?php echo base_url(); ?>assets/custom/css/process-steps.css" rel="stylesheet" type="text/css">
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+ <script src="<?php echo base_url() ?>assets/angular/angular.min.js"></script>
 
 <script type="text/javascript">
   $(document).ready(function() {
@@ -80,19 +80,19 @@
 
 	<div class="row">
 		<div class="col-lg-8 col-lg-offset-2">
-			<h2 align="center">Pengajuan pinjaman usaha</h2>
+			<h2 align="center">Pengajuan Multiguna</h2>
 			<hr>
-		</div>		
-	</div>
-	<?php //echo form_open('borrower/application/next'); ?>
+		<?php //echo form_open('borrower/application/next'); ?>
 	<form method="post" id="form_borrower" action="<?php echo base_url(); ?>borrower/application/next" enctype="multipart/form-data">
 	<div class="row">
-		<div class="col-lg-4 col-lg-offset-2 register">
+	<div class="col-lg-12" style="box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);">
+	<div class="row">
+		<div class="col-lg-6  register">
 			<?php echo validation_errors('<p class="alert alert-danger">');?>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-lg-4 col-lg-offset-2 register">
+		<div class="col-lg-6 register">
 			<h3><i class="fa fa-user"></i>&nbsp;&nbsp;Biodata Anda</h3>
 			<div class="form-group">
 				<label>Nomor KTP</label>
@@ -197,7 +197,7 @@
 			
 			<br />
 		</div>
-		<div class="col-lg-4 register">
+		<div class="col-lg-6 register">
 		
 			<div ng-app="myApp" ng-controller="customersCtrl">
 							<input type="hidden" id="txt_amount" name="txt_amount"  value='{{pinjaman}}' />
@@ -221,13 +221,20 @@
 				<?php echo form_input('txt_company_location', set_value('txt_company_location', $company_location), 'name="txt_company_location" class="form-control"');?>
 			</div>
 			<div class="form-group">
-				<label>Modal Awal Usaha</label>
+				<label>Pendapatan per-bulan</label>
 				<?php echo form_input('txt_company_paid_up_capital', set_value('txt_company_paid_up_capital', $company_paid_up_capital), 'class="form-control InsuredPrice" data-a-sign="" data-v-min="0" data-v-max="1000000000" data-a-dec="," data-a-sep="."');?>
 				<!--<input type="text" class="form-control InsuredPrice" data-a-sign="" data-v-min="0" data-v-max="1000000000" data-a-dec="," data-a-sep="." name="txt_company_paid_up_capital" id="InsuredPrice" value="<?php //echo $company_paid_up_capital; ?>" placeholder="Modal usaha (Rp. .......)" >-->
 				<?php //echo form_input('txt_company_paid_up_capital', set_value('txt_company_paid_up_capital', $company_paid_up_capital), 'name="txt_company_paid_up_capital" class="form-control"');?>
 			</div>
+			
 			<div class="form-group">
+				<label>Pendapatan pertahun</label>
+				<?php echo form_input('txt_company_revenue', set_value('txt_company_revenue', $company_revenue), 'class="form-control InsuredPrice" data-a-sign="" data-v-min="0" data-v-max="1000000000" data-a-dec="," data-a-sep="." name="txt_company_revenue" id="InsuredPrice"');?>
 				
+		<!--<input type="text" class="form-control InsuredPrice" data-a-sign="" data-v-min="0" data-v-max="1000000000" data-a-dec="," data-a-sep="." name="txt_company_revenue" id="InsuredPrice" value="<?php //echo $company_revenue; ?>" placeholder="Modal usaha (Rp. .......)" >-->
+				<?php //echo form_input('txt_company_revenue', set_value('txt_company_revenue', $company_revenue), 'name="txt_company_revenue" class="form-control"');?>
+			</div>
+			<div class="form-group">
 				<label>Jumlah Karyawan</label>
 				<select id="cbo_man_power" name="cbo_man_power" class="form-control">
 					<option value="1" <?php if ($company_man_power=='1') { echo "selected='selected'";} ?> >1 - 10</option>
@@ -235,16 +242,7 @@
 					<option value="3" <?php if ($company_man_power=='3') { echo "selected='selected'";} ?> >Karyawan <= 100</option>
 					<option value="4" <?php if ($company_man_power=='4') { echo "selected='selected'";} ?> >Karyawan <= 500</option>
 					<option value="5" <?php if ($company_man_power=='5') { echo "selected='selected'";} ?> >Karyawan >= 500</option>
-					
 				</select>
-				
-			</div>
-			<div class="form-group">
-				<label>Pendapatan pertahun</label>
-				<?php echo form_input('txt_company_revenue', set_value('txt_company_revenue', $company_revenue), 'class="form-control InsuredPrice" data-a-sign="" data-v-min="0" data-v-max="1000000000" data-a-dec="," data-a-sep="." name="txt_company_revenue" id="InsuredPrice"');?>
-				
-		<!--<input type="text" class="form-control InsuredPrice" data-a-sign="" data-v-min="0" data-v-max="1000000000" data-a-dec="," data-a-sep="." name="txt_company_revenue" id="InsuredPrice" value="<?php //echo $company_revenue; ?>" placeholder="Modal usaha (Rp. .......)" >-->
-				<?php //echo form_input('txt_company_revenue', set_value('txt_company_revenue', $company_revenue), 'name="txt_company_revenue" class="form-control"');?>
 			</div>
 			<div class="form-group">
 				<input id="chk_company_is_new" name="chk_company_is_new" type="checkbox" value="1" <?php if ($company_is_new == "1"){ echo "checked='checked'";} ?> />
@@ -266,6 +264,11 @@
 			<button name="submit" class="btn btn-info pull-right longer">Lanjut <i class="fa fa-chevron-right"></i></button>
 		</div>
 	</div>
+	</div>
+	</div>
+		</div>		
+	</div>
+	
 	<?php echo form_close();?>
 </div>	
 
