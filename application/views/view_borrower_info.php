@@ -1,6 +1,6 @@
- <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+ <script src="<?php echo base_url() ?>assets/angular/angular.min.js"></script>
  
-	 <script src="https://code.angularjs.org/1.2.5/i18n/angular-locale_id-id.js"></script> 
+	 <script src="<?php echo base_url() ?>assets/angular/angular-locale_id-id.js"></script> 
 	  <script src="<?php echo base_url() ?>assets/angular/dynamic-number.js"></script> 
 	   <script src="<?php echo base_url() ?>assets/angular/angular-scroll.js"></script> 
 <!-- process steps -->
@@ -47,15 +47,52 @@
 		<div class="row">
 		  <div class="col-lg-2">
 		   </div>
-			<div class="col-lg-8">
-			<div class="panel panel-default">
+			<div class="col-lg-8" style="box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);">
+			<div class="panel panel-default" style="border-color: #fff !important;">
 			<div class="panel-body">
 			<strong>Detail Pinjaman </strong>
 			<br><br>
 			<div class="row">
 				<div class="col-lg-6">
+				<div class="panel panel-default" style="box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);">
+					<div class="panel-body">
+								<center><h4><b><strong>Kalkulator Pinjaman </strong></b></h5></center>
+								<br>
+						<font color="#000"><h5>Jumlah Pinjaman</h5></font>
+						<div class="row">
+						
+								<div class="input-group">
+									<span class="input-group-addon">RP</span>
+									<input type="text" class="form-control group-input" ng-model="pinjaman" ng-trim=false ng-model="value7" class="form-control" awnum num-sep="," num-int=10 num-fract=2 num-thousand='true' placeholder='Jumlah pinjaman'>
+									
+								</div>	
+						</div>
+						<br />
+						<font color="#000"><h5>Jangka Waktu</h5></font>
+						
+						<div class="input-group">
+			
+							  <select class="form-control group-input" ng-model="selected" name="period"  ng-options="opt as opt for opt in months" ng-init="selected='<?php echo get_cookie("b_month")?>'" ng-change="change(selected)"></select>
+							  <div class="input-group-addon">Bulan</div>
+						</div>
+						<br />
+						
+						<br /><br />
+						
+							<div class="col-sm-12 text-center"> 
+								
+									<button type="submit" ng-click="scrollTo(1)" name="submit" class="btn btn-info center-block longer">Kalkulasi Pinjaman</button>
+									
+							</div>
+					
+					</div>
+					</div>
+			
+					
 				
-				 <div class="form-group">
+				</div>
+				<div class="col-lg-6">
+					 <div class="form-group">
 				<label>Pinjaman</label>
 				<div style="display:block">
 				{{ pinjaman  | currency:"Rp ":0 }}
@@ -89,10 +126,7 @@
 				<p>{{(((((pinjaman/100)*percent)/bulan)+(pinjaman/bulan))*bulan)-pinjaman | currency:"Rp ":0}} sampai {{(((((pinjaman/100)*percentnew)/bulan)+(pinjaman/bulan))*bulan)-pinjaman | currency:"Rp ":0}}</p>
 				</div>
 				</div>
-					
 				
-				</div>
-				<div class="col-lg-6">
 				<div class="form-group">
 				<label>Jenis Pinjaman</label>
 				<div style="display:block">
@@ -124,7 +158,17 @@
 				</ul> 
 				</div>
 				</div>
+				<form method="post" action="<?php echo base_url(); ?>borrower/application">
+				<!--
+				<input type="hidden" name="h_amount" value="{{pinjaman}}">
+			
+				<input type="hidden" name="h_selected_month" value="<?php //echo get_cookie("b_month")?>">
+				-->
+			
+				<button  type="submit"  class="btn btn-info pull-right">Selanjutnya</button></td>
 				
+                
+				</form>
 				</div>
 			</div>
 			
@@ -134,24 +178,11 @@
 		  </div>
 		  <div class="col-lg-1">
 		   </div>
+		
+		   
 		</div>
 		
-		 <div class="row">
-        <div class="col-lg-8 col-lg-offset-2">
-            <hr>
-            	<form method="post" action="<?php echo base_url(); ?>borrower/application">
-				<!--
-				<input type="hidden" name="h_amount" value="{{pinjaman}}">
-			
-				<input type="hidden" name="h_selected_month" value="<?php //echo get_cookie("b_month")?>">
-				-->
-			
-				<button  type="submit"  class="btn btn-info pull-right">Selanjutnya</button></td>
-				
-                </tr>
-				</form>
-        </div>      
-    </div>
+	
 		<!--
 		<div class="row">
 		  <div class="col-lg-2">
