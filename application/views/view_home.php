@@ -4,7 +4,7 @@
 <!-- range slider -->
 
 
-<script src="http://www.rajapremi.com/assets/js/autoNumeric.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/autoNumeric.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$(".InsuredPrice").length > 0 && $(".InsuredPrice").autoNumeric("init");
@@ -140,8 +140,8 @@
                 
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6 col-xs-12" style=" margin-top: 50px; margin-bottom: 25px; padding:10px 10px 10px 10px;">
 					<div class="panel panel-primary">
-					<div class="panel-heading">
-					<form id="apply-form-1" action="<?php echo base_url();?>pilihan" method="post" accept-charset="UTF-8">
+					<div class="panel-heading">borrower/option
+					<form id="apply-form-1" action="<?php echo base_url();?>borrower/option" method="post" accept-charset="UTF-8">
 					<font color="#fff">
 					<h4 style="text-align:center;">
 					Pinjaman Dana Tunai Cepat Segala Kebutuhan
@@ -233,12 +233,12 @@
 							<div class="col-sm-12 text-center"> 
 								
 									<button name="submit" class="btn btn-cek center-block longer">Cek Pinjaman</button>
-								
-									<input type="hidden" id="h_selected_month" name="h_selected_month" value="12" />
+									<!--
+									<input type="hidden" id="h_selected_month" name="h_selected_month" value="12" />-->
 									<input type="hidden" id="h_selected_tujuan" name="h_selected_tujuan" value="0" />
 									<input type="hidden" id="h_siapa" name="h_siapa" value="Individu"/>
 									<input type="hidden" id="h_waktu_mobil" name="h_waktu_mobil" value="0"/>
-									<input type="hidden" id="h_waktu_usaha" name="h_waktu_usaha" value="tes"/>
+									<input type="hidden" id="h_waktu_usaha" name="h_selected_month" value="tes"/>
 									<input type="hidden" id="h_waktu_rumah" name="h_waktu_rumah" value="tes"/>
 									
 								</form>

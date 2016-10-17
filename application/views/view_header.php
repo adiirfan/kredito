@@ -396,7 +396,7 @@ $.validator.addMethod('filesize', function (value, element, param) {
                         <a href="<?php echo base_url();?>">Beranda</a>
                     </li>
 				<li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Refinance <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pinjaman <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="<?php echo base_url(); ?>kredit-pemilikan-rumah">Kredit Pemilikan Rumah</a></li>
                   <li><a href="<?php echo base_url(); ?>kredit-mobil">Kredit Mobil</a></li>
@@ -411,6 +411,11 @@ $.validator.addMethod('filesize', function (value, element, param) {
 			   <a href="<?php echo base_url();?>bid/application">Bid</a>
 			   <li>
 			   <?php } ?>
+					<?php if(get_cookie('user_group') != "I" ){ ?>
+					<li>
+                        <a href="<?php echo base_url();?>investor/application">Investasi</a>
+                    </li>
+					<?php } ?>
                     <li>
                         <a href="<?php echo base_url();?>tentang-kami">Tentang kami</a>
                     </li>
