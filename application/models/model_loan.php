@@ -82,12 +82,17 @@ class Model_loan extends CI_Model{
 				}
 		}
 	}
-	function get_product($loan_id)
+	function get_product($loan_id,$product_detail=null)
 	{
 		//This will only be used when the borrower submit the first loan (continue after account activation)
 		$this->db->select("*");
 		$this->db->from("loan_product");
-		$this->db->order_by("loan_id", "desc");
+		
+		if($product_detail!=null){
+			$this->db->join("loan_detail", "loan_detail.loan_id=loan_product.loan_id", "LEFT");
+		}
+		
+		$this->db->order_by("loan_product.loan_id", "desc");
 		$this->db->limit(1);
 		$query = $this->db->get();
 		return $query->row(); 
@@ -132,13 +137,15 @@ function get_by_user_id($borrower_id)
 			return false;
 		}
 	}
-	function get_product_by_code($code)
+	function get_product_by_code($code,$limit=null)
 	{
 		$this->db->select("*");
 		$this->db->from("loan_product");
 		$this->db->join("loan_detail", "loan_detail.loan_id=loan_product.loan_id", "LEFT OUTER");
 		$this->db->where("loan_product.loan_code", $code);
-		
+		if($limit != null){
+		$this->db->limit($limit);
+		}
 		$query = $this->db->get();
 		
 		if ($query->num_rows == 1){
@@ -150,6 +157,21 @@ function get_by_user_id($borrower_id)
 			return false;
 		}
 	}
+	
+	function get_loan_product_by_code($code)
+	{
+		$this->db->select("*");
+		$this->db->from("loan_product");
+		
+		$this->db->where("loan_product.loan_code", $code);
+		
+		$query = $this->db->get();
+		
+		return $query->result_array();
+   			
+		
+	}
+	
 	function get_loan($loan_id)
 	{
 		$this->db->select("*");
