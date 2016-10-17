@@ -71,6 +71,7 @@
 
 
 $(document).ready(function () {
+	
 
     $(".sticky-header").floatThead({
         scrollingTop: 71
@@ -152,6 +153,21 @@ $(document).ready(function () {
 			    <div class="tab-content">
 				<div id="bandingkan" class="tab-pane fade in active">
 				<div ng-app="myApp" ng-controller="customersCtrl" ng-init="code_loan=<?php echo $random; ?>;quantity=1;cost=5;value_total=50000000" autoscroll="false">
+				
+				<style>
+.ajukan {
+    position: fixed;
+    bottom: 0;
+    right: 542px;
+    width: 700px;
+	height: 100px;
+	border: 3px solid #E4ECF1;
+	background-color:#BFC8CE;
+	z-index:3000;
+}
+</style>
+
+
 				<br>
 				<!-- FILTER SEARCH
 				<div class="row">
@@ -172,6 +188,7 @@ $(document).ready(function () {
 				<div class="col-lg-4 ">	
 				  <div class="panel panel-default">
 				  <div class="panel-body">
+				  
 					<div class="form-group">
 							<label>1. Jumlah Pinjaman    </label>
 							<div class="input-group">
@@ -186,7 +203,6 @@ $(document).ready(function () {
 				<div class="col-lg-4 ">
 					<div class="panel panel-default">
 					<div class="panel-body">
-					
 						<div class="form-group">
 							<label>2. Jangka Waktu Pinjaman</label>
 							  <div class="input-group">
@@ -323,11 +339,16 @@ $(document).ready(function () {
 							<center><b><font color="#000">Pembayaran Pertama</font></b></center>
 							<i class="glyphicon glyphicon-sort"></i>
 							</th>
+							<!--
 							<th class="th-6" style="width:15%;height:20%; cursor:pointer;">
 							<i class="glyphicon glyphicon-so"></i>
 							<a href="#" ng-click="sortType = 'filter_sum_bunga'; sortReverse = !sortReverse">
 							<center><b><font color="#000">Total Jumlah Bunga Dibayarkan </font></b></center>
 							 <i class="glyphicon glyphicon-sort"></i>
+							</th>
+							-->
+							<th class="th-6" style="width:5%;height:20%; cursor:pointer;">
+							
 							</th>
 							 <th style="width:15%;height:20%;"><center><b><font color="#000">Ajukan</font></th>
 						  </tr>
@@ -337,8 +358,10 @@ $(document).ready(function () {
 						<tr ><td colspan="7"><center> <img  src="<?php echo base_url() ?>assets/img/loader.gif"></img></center></td></tr>
 						</tbody>
 						<tbody ng-hide="IsHidden">
-						
-						<tr ng-repeat-start="x in filtered = (names | filter:filterByCompany | filter:filterByDP )  |  orderBy:firstpayment_filter | orderBy:sortType:sortReverse | filter:filterByCompany | filter:filterByDP | filter:searchFish " ng-click="showDetail(x.company_product_id)" ng-class-odd="'alt'">
+						<style>
+						.pending-delete { bgcolor: pink }
+						</style>
+						<tr  ng-repeat-start="x in filtered = (names | filter:filterByCompany | filter:filterByDP )  |  orderBy:firstpayment_filter | orderBy:sortType:sortReverse | filter:filterByCompany | filter:filterByDP | filter:searchFish " ng-click="showDetail(x.company_product_id)" ng-class-odd="'alt'" ng-class="{'pending-delete': checkedStatus}">
 							<th><img src="<?php echo base_url();?>assets/img/{{ x.company_image }}" width="90px" height="35px" ><p>{{ x.company_product_name }}</p>
 							 
 							<span ng-if="x.company_product_condition === 1">
@@ -360,8 +383,19 @@ $(document).ready(function () {
 						{{firstpayment(total_pinjaman,uangmuka(x.down_payment,total_pinjaman),x.asuransi_rate,x.administrasi,cicilanbulan(total_pinjaman,x.down_payment,x.interest_rate,selected)) | currency:"Rp. ":0}}
 						</b>
 						</td> 
+						<!--
 						<td><b>{{totalbunga(total_pinjaman,x.down_payment,x.interest_rate)  | currency:"Rp. ":0}}</b>
-						</td>	
+						</td>
+						-->
+						<td>
+							<div class="checkbox">
+								<label><input type="checkbox" value=""  ng-click="addItem(x.company_product_id,x.company_product_name,x.company_image,$index)"
+								
+								ng-model="checkedStatus[$index]"
+								></label>
+							</div>
+							
+						</td>
 						<td>
 						<span title="Details" ng-click="toggleModal(x.company_product_id)" data-href="http://google.com" class="btn btn-cek button tbl custombtncom" style="width: 100%; margin-right: 2px; backgrond-color=93E3EE;">Ajukan</span>
 						<br><br>
@@ -506,6 +540,106 @@ $(document).ready(function () {
 				  </modal>
 				</div>
 				<!-- BATAS MODALL -->
+				
+				 <!-- MODAL -->
+				<div class="container">
+				  <modal title="Sumit pengajuan anda" visible="Modalregister">
+				  
+					<form role="form" name="userForm" ng-submit="submitRegister()">
+					
+						<div class="row">
+						 <div class="col-md-2">
+						 </div>
+						  <div class="col-md-8">
+						  
+						  <div class="form-group">
+						  
+							<input type="hidden" class="form-control input-lg" id="email"  placeholder="Enter email" />
+							 <input type="hidden" class="form-control group-input" name="loan" ng-model="reg.loan" ng-trim=false ng-model="value7" class="form-control" awnum num-sep="," num-int=10 num-fract=2 num-thousand='true' placeholder='Jumlah pinjaman'>		
+									
+								<div class="form-group">
+									  <label for="usr">Nama Lengkap</label>
+									  <input type="text" ng-model="reg.nama" class="form-control" id="nama" placeholder='Nama lengkap anda'>
+								</div>
+								<div class="form-group">
+								  <label for="pwd">Nomor telepon</label>
+								  <input type="text" ng-model="reg.telp" class="form-control" id="telp" placeholder='Nomor Telpon'>
+								</div>
+								<div class="form-group">
+								  <label for="pwd">Email</label>
+								  <input type="email" ng-model="reg.email" class="form-control" id="email" placeholder='Email anda'>
+								</div>
+								<div class="form-group">
+								  <label for="pwd">Penghasilan per-bulan:</label>
+									
+								<div class="input-group">
+								<div class="input-group-addon">Rp</div>
+									<input type="text" class="form-control group-input" ng-model="reg.income" ng-trim=false ng-model="value7" class="form-control" awnum num-sep="," num-int=10 num-fract=2 num-thousand='true' placeholder='Penghasilan perbulan'>
+								  <div class="input-group-addon">,00</div>
+								</div>
+								 
+								 </div>
+								
+							
+							
+							<input type="hidden" class="form-control" name="codeloan" ng-model="order.codeloan"  />
+							<input type="hidden" class="form-control" name="company_product_id" ng-model="order.company_product_id" />
+						
+						  </div>
+						  </div>
+						  <div class="col-md-2">
+						 </div>
+						</div>
+					 <h2 align="center"> <button type="submit"  class="btn btn-cek">Ajukan Sekarang</button></h2>
+					</form>
+				  </modal>
+				</div>
+				<!-- BATAS MODALL -->
+				
+				<div class="container">
+				  <modal title="Pengajuan anda kami terima" visible="Modalthanks">
+				  
+					<form role="form" name="tohome" ng-submit="submitThanks()">
+					
+						<div class="row">
+						 <div class="col-md-2">
+						 </div>
+						  <div class="col-md-8">
+						  
+						<h2 align="center"> Silahkan cek email anda </h2>
+						  </div>
+						  <div class="col-md-2">
+						 </div>
+						</div>
+					<h2 align="center"> <button type="submit"  class="btn btn-cek">Tutup</button></h2>
+					</form>
+				  </modal>
+				</div>
+				<!-- BATAS MODALL -->
+<div class="ajukan" ng-hide="ajukan">
+<button type="button" ng-click="close_multiple()" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+<div class="row" style="margin-top:10px;">
+		<div class="col-md-5">
+		
+			<table style="border: 0px solid black !important;">
+			<tr>
+			<td data-ng-repeat="item in items " style="width:120px;height:0%; padding-left:25px">
+			<img src="<?php echo base_url();?>assets/img/{{ item.company_image }}" width="70px" height="70px" ><button style="position:absolute" type="button" data-ng-click="remove(item.index,$index)" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</td>
+			</tr>
+			</table>
+		</div>
+		<div class="col-md-7" style="margin:0px !important">
+		<span title="Details" ng-click="showregisterModal()" ng-href="http://google.com" class="btn btn-cek button tbl custombtncom" style="width: 80%; margin-top: 20px;margin-left:50px; backgrond-color=93E3EE;">Ajukan</span>
+		</div>
+</div>
+<!--
+ <div  data-ng-repeat="item in items ">
+ {{item.nama_produk}}
+ </div>
+ -->
+</div>
 				</div>
 					
 				</div>
@@ -564,7 +698,7 @@ $(document).ready(function () {
  
 	</div>
 </div>
-		
+
 	
 <script>
 function save(aksi)
@@ -582,7 +716,91 @@ app.controller('customersCtrl', function($scope, $http, $location, $anchorScroll
 	$scope.radioModel = 'Middle';
 	$scope.codeloan = '<?php echo $random; ?>';
 	$scope.base_url = '<?php echo base_url(); ?>';
+	//alert($scope.names[0].product_id);
+	$scope.items =  [];
+	$scope.ite =  ['tes','y','z'];
+	//alert($scope.ite.indexOf("y"));
+	 $scope.providers = [{
+        Id: 5
+    }, {
+        Id: 6
+    }, {
+        Id: 8
+    }, {
+        Id: 10
+    }];
+	//alert($scope.providers.indexOf(6));
+	//$scope.itemz =  ite.indexOf("tes");
+	
+	
+	$scope.ajukan = true;
+	
+	$scope.close_multiple = function(){
+	
+		$scope.items.length = 0; 
+		$scope.ajukan = true;
+		$scope.checkedStatus=false;		
+	
+	}
+	$scope.checkedStatus=[];
+	
+	//Remove item in multiple choice 
+	$scope.remove = function(index_checbox,index) { 
+	 
+	  //remove item in multiple choice
+	  $scope.items.splice(index, 1);   
+	  
+	  //unchecbox
+	  $scope.checkedStatus[index_checbox] = false;	
+	  
+		if (typeof $scope.items[0] == 'undefined') {	
+			$scope.ajukan = true;
+		}
+	  
+	}
+	
+		//Add Ajukan
+		$scope.addItem = function(company_product_id,nama_produk,image,indexs){
+			
+		
+				$scope.ajukan = $scope.ajukan ? false : false;
 
+							var index = -1;
+							$scope.items.forEach(function(obj, i) {
+								if (obj.company_product_id === company_product_id) index = i;
+							});
+							
+							// is currently selected
+							if (index > -1) {
+								$scope.items.splice(index, 1);
+							}
+							// is newly selected
+							else {
+								
+								if ($scope.items.length < 3){
+								 $scope.items.push({
+									company_product_id:company_product_id,	
+									nama_produk: nama_produk,
+									company_image: image,
+									index: indexs,									
+								});
+								}else{
+									alert('maximal tiga produk');
+								}
+							
+							
+							}
+							
+							
+							if (typeof $scope.items[0] == 'undefined') {	
+							$scope.ajukan = true;
+							}
+			
+				//Set Cookie
+			//	$cookieStore.put('items', $scope.items);
+
+		}
+	
 		//Scroll to show result
 	var section3 = angular.element(document.getElementById('cek2'));
 	$scope.scrollTo = function(div) {
@@ -636,6 +854,14 @@ app.controller('customersCtrl', function($scope, $http, $location, $anchorScroll
 	$scope.isCollapsed = true;
 	$scope.isCollapsed_2 = true;
  
+	
+    $scope.ShowAjukan = function () {
+                //If DIV is hidden it will be visible and vice versa.
+                
+				 $scope.ajukan = $scope.ajukan ? false : false;
+				 //$timeout(function () { $scope.ajukan = true; }, 1000);  
+            }
+			
 	  //ng hide for loading
 	$scope.IsHidden = false;
 	$scope.loading = true;
@@ -649,6 +875,23 @@ app.controller('customersCtrl', function($scope, $http, $location, $anchorScroll
 	  //P2P Calculate
 	$scope.bunga=20/100;
 	$scope.bulan=12;
+	
+	//Show modal Register 
+	$scope.Modalregister = false;
+    $scope.showregisterModal = function(){
+    $scope.Modalregister = !$scope.Modalregister;
+	$scope.ajukan = true;
+	$scope.reg.loan = $scope.total_pinjaman;
+	$scope.reg.codeloan=$scope.codeloan;
+		
+
+    };
+	
+	//Close modal
+	$scope.cancel = function () {
+    $scope.ajukan = false;
+	};
+	
 	
 	//Show Modal for confirmaton  
 	$scope.showModal = false;
@@ -664,6 +907,9 @@ app.controller('customersCtrl', function($scope, $http, $location, $anchorScroll
   
 	$scope.names1 = name.interest_rate;
     };
+	
+	
+	
 	
 	 $scope.order = {};
 	 $scope.submitForm = function() {
@@ -687,6 +933,38 @@ app.controller('customersCtrl', function($scope, $http, $location, $anchorScroll
           });
 
         };
+		$scope.reg = {};
+		$scope.reg.item=$scope.items;
+		 $scope.submitRegister = function() {
+		 //alert('gagal');
+		 // $scope.Modalregister = false;
+		  $scope.ajukan = true;
+		  //$scope.Modalthanks = !$scope.Modalthanks;
+		
+        $http({
+          method  : 'POST',
+          url     : '<?php echo base_url(); ?>add_order_multiple',
+         data    : $scope.reg, //forms user object
+         headers : {'Content-Type': undefined}  
+         })
+		 .success(function(data) {
+            if (data.status) {
+              // Showing errors.
+			 $scope.Modalregister = false;
+            $scope.Modalthanks = !$scope.Modalthanks;
+            } else {
+             // $scope.message = data.message;
+            }
+          });
+		
+        };
+		$scope.submitThanks = function() {
+	
+			 
+             window.location = "<?php echo base_url(); ?>";
+         
+        };
+		
    
 	
 	$scope.currencyVal;
@@ -807,7 +1085,7 @@ app.controller('customersCtrl', function($scope, $http, $location, $anchorScroll
 		
 	});
 
-//app.$inject = ['$scope'];
+
 
 	//Show Modal 
 	app.directive('modal', function () {
@@ -816,7 +1094,7 @@ app.controller('customersCtrl', function($scope, $http, $location, $anchorScroll
 			  '<div class="modal-dialog">' + 
 				'<div class="modal-content">' + 
 				  '<div class="modal-header">' + 
-					'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' + 
+					'<button type="button" ng-click="cancel()" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' + 
 					'<h4 class="modal-title"><h3 align="center">{{ title }}</h3></h4>' + 
 				  '</div>' + 
 				  '<div class="modal-body" ng-transclude></div>' + 
@@ -835,6 +1113,7 @@ app.controller('customersCtrl', function($scope, $http, $location, $anchorScroll
 				$(element).modal('show');
 			  else
 				$(element).modal('hide');
+				
 			});
 
 			$(element).on('shown.bs.modal', function(){
@@ -846,12 +1125,15 @@ app.controller('customersCtrl', function($scope, $http, $location, $anchorScroll
 			$(element).on('hidden.bs.modal', function(){
 			  scope.$apply(function(){
 				scope.$parent[attrs.visible] = false;
+				
 			  });
 			});
 		  }
 		};
 	  });
 </script> 
+
+
 			
    
 
