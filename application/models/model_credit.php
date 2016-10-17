@@ -113,7 +113,7 @@ class Model_credit extends CI_Model{
 		 $query = $this->db->get('');
 		return $query->result_array();
 	}
-	function view_sumbmission_loan_2($user_id,$email)
+	function view_sumbmission_loan_2($user_id,$email,$group_code=null)
 	{
 		
 		$this->db->select('*');
@@ -125,6 +125,22 @@ class Model_credit extends CI_Model{
 		$this->db->or_where('loan_detail.loan_email',$email);
 		$this->db->order_by('loan_create_at DESC');
 		 $query = $this->db->get('');
+		 
+		 if ($query->num_rows < 1){
+		$this->db->select('*');
+		$this->db->from('loan_product');
+		$this->db->join('loan_detail', 'loan_product.loan_code=loan_detail.loan_code','left');
+		$this->db->join('company_product', 'company_product.company_product_id=loan_product.company_product_id','left');
+		$this->db->where('loan_status >=','1');
+		$this->db->where('loan_product.user_id >=',$user_id);
+		$this->db->or_where('loan_detail.loan_email',$email);
+		$this->db->group_by('loan_product.loan_code');
+		$this->db->order_by('loan_create_at DESC');
+		 $query = $this->db->get('');
+		 
+		}
+		 
+		 
 		return $query->result_array();
 	}
 	function set_value_sumbmission($user_id=NULL)
