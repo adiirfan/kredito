@@ -49,6 +49,7 @@ $route['kredit-mobil'] = 'index/kredit_mobil/'.$id;
 $route['kredit-pemilikan-rumah'] = 'index/kredit_perumahan';
 $route['product_data'] = 'index/product_data';
 $route['add_order'] = 'index/add_order';
+$route['add_order_multiple'] = 'index/add_order_multiple';
 $route['konfirmasi-refinance/:any'] = 'index/konfirmasi_refinance/';
 $route['succses'] = 'index/succses/';
 $route['add_loan'] = 'index/add_loan/';
