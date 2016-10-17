@@ -44,6 +44,10 @@ class Model_user extends CI_Model{
 		
 		$this->db->insert('user', $query);
 		$data["user_id"] = $this->db->insert_id();
+		$code = $this->generate_code($data["user_id"], $param["user_group"]);
+		$this->db->query("UPDATE user SET ".
+			"user_code='".$code."' ".
+			"WHERE user_id=".$data["user_id"]);
 		
 		$this->db->query("UPDATE loan_product SET user_id =".$data["user_id"]." ".
 			"WHERE loan_id='".$param["loan_id"]."'");	
@@ -122,7 +126,7 @@ class Model_user extends CI_Model{
 		return "CDA".$user_group.$zero.$user_id;
 	}
 
-	function check($param)
+	function check($param,$get_userid=null)
 	{
 		$this->db->select("*");
 		$this->db->from("user");
@@ -132,11 +136,17 @@ class Model_user extends CI_Model{
 		$query = $this->db->get();
 		
 		if ($query->num_rows >= 1){
-   			return true;
+			
+			if($get_userid != null){
+				return $query->row();
+			}else{
+			
+   			return 1;
+			}
 		}
 		else
 		{
-			return false;
+			return null;
 		}
 	}
 
