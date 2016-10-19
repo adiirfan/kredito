@@ -140,8 +140,8 @@
                 
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6 col-xs-12" style=" margin-top: 50px; margin-bottom: 25px; padding:10px 10px 10px 10px;">
 					<div class="panel panel-primary">
-					<div class="panel-heading">borrower/option
-					<form id="apply-form-1" action="<?php echo base_url();?>borrower/option" method="post" accept-charset="UTF-8">
+					<div class="panel-heading">
+					<form id="apply-form-1" action="<?php echo base_url();?>borrower/application/info" method="post" accept-charset="UTF-8">
 					<font color="#fff">
 					<h4 style="text-align:center;">
 					Pinjaman Dana Tunai Cepat Segala Kebutuhan
