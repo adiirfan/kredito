@@ -50,7 +50,7 @@
 			<div class="col-lg-8" style="box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);">
 			<div class="panel panel-default" style="border-color: #fff !important;">
 			<div class="panel-body">
-			<strong>Detail Pinjaman </strong>
+			<strong>Pinjaman Multiguna </strong>
 			<br><br>
 			<div class="row">
 				<div class="col-lg-6">
@@ -72,7 +72,7 @@
 						
 						<div class="input-group">
 			
-							  <select class="form-control group-input" ng-model="selected" name="period"  ng-options="opt as opt for opt in months" ng-init="selected='<?php echo get_cookie("b_month")?>'" ng-change="change(selected)"></select>
+							  <select class="form-control group-input" ng-model="selected" name="period"  ng-options="opt as opt for opt in months" ng-init="selected='<?php echo $tenor; ?>'" ng-change="change(selected)"></select>
 							  <div class="input-group-addon">Bulan</div>
 						</div>
 						<br />
@@ -102,7 +102,7 @@
 				<div class="form-group">
 				<label>Jangka Waktu</label>
 				<div style="display:block">
-				<?php echo get_cookie("b_month")?> Bulan
+				{{bulan}} Bulan
 				</div>
 				</div>
 				
@@ -154,21 +154,31 @@
 				<label>Syarat dan ketentuan</label>
 				<div style="display:block">
 				 <ul>
-                <li>Warga Negara Indonesia </li><li>Minimal Umur 20 tahun </li><li>Minimal penghasilan per-bulan 10000000</li>
+                <li>Warga Negara Indonesia </li><li>Minimal Umur 20 tahun </li><li>Minimal penghasilan per-bulan Rp. 10.000.0000</li>
 				</ul> 
 				</div>
 				</div>
-				<form method="post" action="<?php echo base_url(); ?>borrower/application">
+				
 				<!--
 				<input type="hidden" name="h_amount" value="{{pinjaman}}">
 			
 				<input type="hidden" name="h_selected_month" value="<?php //echo get_cookie("b_month")?>">
 				-->
+				
+				<form method="post" action="<?php echo base_url(); ?>borrower/option">
+				<input type="hidden" name="h_amount" value="{{pinjaman}}">
 			
-				<button  type="submit"  class="btn btn-info pull-right">Selanjutnya</button></td>
+				<input type="hidden" name="h_selected_month" value="{{bulan}}">
+				
+				<button  type="submit"  class="btn btn-cek">Saya ingin pinjam</button>
+				
+				</form>
+				
+			
+				
 				
                 
-				</form>
+			
 				</div>
 			</div>
 			
@@ -246,11 +256,11 @@ var app = angular.module('myApp', ["dynamicNumber","duScroll"]);
 app.controller('cek', function($scope, $http, $location, $anchorScroll, $locale, $document) {
    
   
-   $scope.pinjaman = <?php echo get_cookie("b_amount")?>;
+   $scope.pinjaman = <?php echo $pinjaman;?>;
 	 $scope.radioModel = 'Middle';
 	 $scope.months = ['3','6','9','12'];
 	 $scope.bunga=20/100;
-	 $scope.bulan=<?php echo get_cookie("b_month")?>;
+	 $scope.bulan=<?php echo $tenor;?>;
 	 $scope.percent=(15* $scope.bulan)/12;
 	 $scope.percentnew=(20* $scope.bulan)/12;
 	 

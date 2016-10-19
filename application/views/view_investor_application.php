@@ -120,7 +120,7 @@
 
 	<div class="row">
 		<div class="col-lg-8 col-lg-offset-2">
-			<h2 align="center">Pendaftaran</h2>
+			
 			<hr>
 		</div>		
 	</div>
@@ -131,113 +131,124 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-lg-4 col-lg-offset-2 register">
+		<div class="col-lg-8 col-lg-offset-2">
 		
-			<div class="form-group">
-				<label>Nama Lengkap</label>
-				<div style="display:block">
-				<?php 
-					echo form_input('txt_full_name', set_value('txt_full_name', ''), 'name="txt_full_name" class="form-control"  ');
-				?>
-				</div>
-			</div>
-			<div class="form-group">
-				<label>Panggilan</label>
-				<select id="cbo_salutation" name="cbo_salutation" class="form-control" >
-					<?php 
-	                    echo '<option value="">Pilih</option>';
-	                    for ($i = 0; $i < count($salutation_list); ++$i)
-	                    { 
-	                    	if ($salutation_id == $salutation_list[$i]->salutation_id)
-	                    		echo '<option value="'.$salutation_list[$i]->salutation_id.'" selected="selected">'.$salutation_list[$i]->salutation_name.'</option>';
-	                    	else
-	                      		echo '<option value="'.$salutation_list[$i]->salutation_id.'">'.$salutation_list[$i]->salutation_name.'</option>';
-	                    }
-                    ?>
-				</select>
-			</div>
-			<div class="form-group">
-				<label>Email</label>
-				<?php 
-					echo form_input('txt_email', set_value('txt_email', ''), 'name="txt_email" class="form-control"');
-				?>
-			</div>
-			
-			
-		</div>
-		<div class="col-lg-4 register">
-		
-		<div class="form-group">
-				<label>Nomor Telepon</label>
-				<?php echo form_input('txt_mobile_phone', set_value('txt_mobile_phone', ''), 'name="txt_mobile_phone" class="form-control"');?>
-			</div>
-			<div class="form-group">
-				<label>Alamat</label>
-				<?php 
-				$data = array(
-	              'name'        => 'txt_address',
-	              'id'          => 'txt_address',
-	              'value'       =>  $address,
-	              'rows'   		=> '5',
-	              'class'		=> 'form-control',
-	              'maxlength' 	=> 255
-	            );
-				echo form_textarea($data); ?>
-			</div>
-			<div class="form-group">
-				<label>Siapa anda</label><br />
-				<div class="btn-group" role="group" aria-label="...">
-                  <button type="button" class="btn btn-default btn-type <?php if($investment_type == "I"){echo "active";} ?>" value="I">Individu</button>
-                  <button type="button" class="btn btn-default btn-type <?php if($investment_type == "C"){echo "active";} ?>" value="C">Perusahaan</button>
-                  <input type="hidden" id="h_investor_type" name="h_investor_type" value="<?php echo $investment_type ?>" />
-                </div>
-			</div>
-			<br />
-			<div id="div_company" class="hidden">
-				<h3><i class="fa fa-building-o"></i>&nbsp;&nbsp;Informasi Perusahaan</h3>
-				<div class="form-group">
-					<label>Nama Perusahaan</label>
-					<?php echo form_input('txt_company_name', set_value('txt_company_name', ''), 'name="txt_company_name" class="form-control"');?>
-				</div>
-				<div class="form-group">
-					<label>Nomor NPWP</label>
-					<?php echo form_input('txt_company_registration', set_value('txt_company_registration', ''), 'name="txt_company_registration" class="form-control"');?>
-				</div>
-				<br />
-			</div>
-		<!--
-			<div class="form-group">
-				<label>Fund</label>
-				<div class="row">
-		        	<div class="col-sm-6">
-		        		<div class="input-group">
-							<span class="input-group-addon">MYR</span>
-							<input type="hidden" id="txt_fund" name="txt_fund" maxlength="20" class="form-control group-input" />
+		<div class="row">
+			<div class="col-lg-12" style="box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);">
+			<h2 align="center">Pendaftaran</h2>
+			<div class="row">
+				<div class="col-lg-6 register">
+					<div class="form-group">
+						<label>Nama Lengkap</label>
+						<div style="display:block">
+						<?php 
+							echo form_input('txt_full_name', set_value('txt_full_name', ''), 'name="txt_full_name" class="form-control"  ');
+						?>
 						</div>
-		        	</div>
-		        	<div class="col-sm-6">
-		        		<div class="row">
-		        			<?php// echo form_input('range-slider', set_value('range-slider', $fund), 'data-slider="true" data-slider-range="10000,500000" data-slider-step="1000"');?>
-		        		</div>
-		        		<div class="row">
-		        			<span class="output">10k</span>
-		        			<span class="pull-right">500k</span>
-		        		</div>
-		       		</div>
-		       	</div>
+					</div>
+					<div class="form-group">
+						<label>Panggilan</label>
+						<select id="cbo_salutation" name="cbo_salutation" class="form-control" >
+							<?php 
+								echo '<option value="">Pilih</option>';
+								for ($i = 0; $i < count($salutation_list); ++$i)
+								{ 
+									if ($salutation_id == $salutation_list[$i]->salutation_id)
+										echo '<option value="'.$salutation_list[$i]->salutation_id.'" selected="selected">'.$salutation_list[$i]->salutation_name.'</option>';
+									else
+										echo '<option value="'.$salutation_list[$i]->salutation_id.'">'.$salutation_list[$i]->salutation_name.'</option>';
+								}
+							?>
+						</select>
+					</div>
+					<div class="form-group">
+						<label>Email</label>
+						<?php 
+							echo form_input('txt_email', set_value('txt_email', ''), 'name="txt_email" class="form-control"');
+						?>
+					</div>
+				</div>
+			
+			
+			
+		
+				<div class="col-lg-6 register">
+				
+				<div class="form-group">
+						<label>Nomor Telepon</label>
+						<?php echo form_input('txt_mobile_phone', set_value('txt_mobile_phone', ''), 'name="txt_mobile_phone" class="form-control"');?>
+					</div>
+					<div class="form-group">
+						<label>Alamat</label>
+						<?php 
+						$data = array(
+						  'name'        => 'txt_address',
+						  'id'          => 'txt_address',
+						  'value'       =>  $address,
+						  'rows'   		=> '5',
+						  'class'		=> 'form-control',
+						  'maxlength' 	=> 255
+						);
+						echo form_textarea($data); ?>
+					</div>
+					<div class="form-group">
+						<label>Siapa anda</label><br />
+						<div class="btn-group" role="group" aria-label="...">
+						  <button type="button" class="btn btn-default btn-type <?php if($investment_type == "I"){echo "active";} ?>" value="I">Individu</button>
+						  <button type="button" class="btn btn-default btn-type <?php if($investment_type == "C"){echo "active";} ?>" value="C">Perusahaan</button>
+						  <input type="hidden" id="h_investor_type" name="h_investor_type" value="<?php echo $investment_type ?>" />
+						</div>
+					</div>
+					<br />
+					<div id="div_company" class="hidden">
+						<h3><i class="fa fa-building-o"></i>&nbsp;&nbsp;Informasi Perusahaan</h3>
+						<div class="form-group">
+							<label>Nama Perusahaan</label>
+							<?php echo form_input('txt_company_name', set_value('txt_company_name', ''), 'name="txt_company_name" class="form-control"');?>
+						</div>
+						<div class="form-group">
+							<label>Nomor NPWP</label>
+							<?php echo form_input('txt_company_registration', set_value('txt_company_registration', ''), 'name="txt_company_registration" class="form-control"');?>
+						</div>
+						<br />
+					</div>
+				<!--
+					<div class="form-group">
+						<label>Fund</label>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="input-group">
+									<span class="input-group-addon">MYR</span>
+									<input type="hidden" id="txt_fund" name="txt_fund" maxlength="20" class="form-control group-input" />
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="row">
+									<?php// echo form_input('range-slider', set_value('range-slider', $fund), 'data-slider="true" data-slider-range="10000,500000" data-slider-step="1000"');?>
+								</div>
+								<div class="row">
+									<span class="output">10k</span>
+									<span class="pull-right">500k</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					-->
+					
+					
+				</div>
 			</div>
-			-->
-			
-			
+			<p align="center"><button name="submit" class="btn btn-info longer">Selanjutnya <i class="fa fa-chevron-right"></i></button></p>
+			<?php echo form_close();?>
+			<hr>
+			</div>
 		</div>
-	
+		
 	</div>
 	
 	<div class="row">
 		<div class="col-lg-8 col-lg-offset-2">
-			<p align="center"><button name="submit" class="btn btn-info longer">Selanjutnya <i class="fa fa-chevron-right"></i></button></p>
-			<?php echo form_close();?>
-			<hr>
+			
 		</div>		
 	</div>
 </div>	
