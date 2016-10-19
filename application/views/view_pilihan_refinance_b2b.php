@@ -1,6 +1,6 @@
- <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+ <script src="<?php echo base_url() ?>assets/angular/angular.min.js"></script>
  
-	 <script src="https://code.angularjs.org/1.2.5/i18n/angular-locale_id-id.js"></script> 
+	 <script src="<?php echo base_url() ?>assets/angular/angular-locale_id-id.js"></script> 
 	  <script src="<?php echo base_url() ?>assets/angular/dynamic-number.js"></script> 
 	   <script src="<?php echo base_url() ?>assets/angular/angular-scroll.js"></script> 
 
