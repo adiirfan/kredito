@@ -380,7 +380,7 @@ $config['gmail_name'] = 'Kredito.id';
 $config['email_header'] = "<div style='width:95%;font-size:14px;text-align:left;background-color:#F1F1F1;'>".
             "<BR>".
             "<div style='width:80%;margin: 0px auto 5px auto;padding-top:15px;'>".
-            "<span style='font-family:Helvetica;color:#777;font-size: 22px;'>Rajakredit.co.id</span>".
+            "<span style='font-family:Helvetica;color:#777;font-size: 22px;'>Kredito.co.id</span>".
             "<div style='border-style:solid;border-width:1px;border-color:black;margin-top:5px;padding:10px;background-color:#FFF;'>".
             "<BR>";
 $config['email_footer'] = "<BR><BR><BR>".
