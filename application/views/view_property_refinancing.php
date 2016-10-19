@@ -200,6 +200,9 @@ $(document).ready(function () {
 							<center><b><font color="#000">Masa pelunasan dengan pinalti </font></b></center>
 							 <i class="glyphicon glyphicon-sort"></i>
 							</th>
+							<th class="th-6" style="width:5%;height:20%; cursor:pointer;">
+							
+							</th>
 							 <th style="width:15%;height:20%;"><center><b><font color="#000">Apply</font></th>
 						  </tr>
 						</thead>
@@ -209,8 +212,6 @@ $(document).ready(function () {
 						<tbody ng-hide="IsHidden">
 						  <tr ng-repeat-start="x in names | orderBy:sortType:sortReverse | filter:searchFish">
 							<th><img src="<?php echo base_url();?>assets/img/{{ x.company_image }}" width="90px" height="35px" ><center><b><p>{{ x.company_product_name }}</p></b></center>
-							
-							
 							</th> 
 							<th align="justify"><h3><font color="3E70C6">{{ x.interest_rate }}%</font></h3><br></p></th> 
 						<td>{{ (((total_pinjaman-(x.down_payment / 100 * total_pinjaman)) + (3 * x.interest_rate / 100) *  (total_pinjaman-(x.down_payment / 100 * total_pinjaman)))/ 36) | currency:"Rp ":0 }}</td> 
@@ -224,7 +225,15 @@ $(document).ready(function () {
 							</span>
 						</b></center></h4><br>
 						</td> 
+						<td>
+							<div class="checkbox">
+								<label><input type="checkbox" value=""  ng-click="addItem(x.company_product_id,x.company_product_name,x.company_image,$index)"
+								
+								ng-model="checkedStatus[$index]"
+								></label>
+							</div>
 							
+						</td>
 						<td>
 						
 						<span title="Details" ng-click="toggleModal(x.company_product_id)" data-href="http://google.com" class="btn btn-cek button tbl custombtncom" style="width: 100%; margin-right: 2px; backgrond-color=93E3EE;">Apply</span>
@@ -437,6 +446,120 @@ $(document).ready(function () {
 				  </modal>
 				</div>
 				<!-- BATAS MODALL -->
+					 <!-- MODAL -->
+				<div class="container">
+				  <modal title="Sumit pengajuan anda" visible="Modalregister">
+				  
+					<form role="form" name="userForm" ng-submit="submitRegister()">
+					
+						<div class="row">
+						 <div class="col-md-2">
+						 </div>
+						  <div class="col-md-8">
+						  
+						  <div class="form-group">
+						  
+							<input type="hidden" class="form-control input-lg" id="email"  placeholder="Enter email" />
+							 <input type="hidden" class="form-control group-input" name="loan" ng-model="reg.loan" ng-trim=false ng-model="value7" class="form-control" awnum num-sep="," num-int=10 num-fract=2 num-thousand='true' placeholder='Jumlah pinjaman'>		
+									
+								<div class="form-group">
+									  <label for="usr">Nama Lengkap</label>
+									  <input type="text" ng-model="reg.nama" class="form-control" id="nama" placeholder='Nama lengkap anda'>
+								</div>
+								<div class="form-group">
+								  <label for="pwd">Nomor telepon</label>
+								  <input type="text" ng-model="reg.telp" class="form-control" id="telp" placeholder='Nomor Telpon'>
+								</div>
+								<div class="form-group">
+								  <label for="pwd">Email</label>
+								  <input type="email" ng-model="reg.email" class="form-control" id="email" placeholder='Email anda'>
+								</div>
+								<div class="form-group">
+								  <label for="pwd">Penghasilan per-bulan:</label>
+									
+								<div class="input-group">
+								<div class="input-group-addon">Rp</div>
+									<input type="text" class="form-control group-input" ng-model="reg.income" ng-trim=false ng-model="value7" class="form-control" awnum num-sep="," num-int=10 num-fract=2 num-thousand='true' placeholder='Penghasilan perbulan'>
+								  <div class="input-group-addon">,00</div>
+								</div>
+								 
+								 </div>
+								
+							
+							
+							<input type="hidden" class="form-control" name="codeloan" ng-model="order.codeloan"  />
+							<input type="hidden" class="form-control" name="company_product_id" ng-model="order.company_product_id" />
+						
+						  </div>
+						  </div>
+						  <div class="col-md-2">
+						 </div>
+						</div>
+					 <h2 align="center"> <button type="submit"  class="btn btn-cek">Ajukan Sekarang</button></h2>
+					</form>
+				  </modal>
+				</div>
+				<!-- BATAS MODALL -->
+				
+				<div class="container">
+				  <modal title="Pengajuan anda kami terima" visible="Modalthanks">
+				  
+					<form role="form" name="tohome" ng-submit="submitThanks()">
+					
+						<div class="row">
+						 <div class="col-md-2">
+						 </div>
+						  <div class="col-md-8">
+						  
+						<h2 align="center"> Silahkan cek email anda </h2>
+						  </div>
+						  <div class="col-md-2">
+						 </div>
+						</div>
+					<h2 align="center"> <button type="submit"  class="btn btn-cek">Tutup</button></h2>
+					</form>
+				  </modal>
+				</div>
+				
+				<!-- BATAS MODALL -->
+<style>
+.ajukan {
+    position: fixed;
+    bottom: 0;
+    right: 542px;
+    width: 700px;
+	height: 100px;
+	border: 3px solid #E4ECF1;
+	background-color:#BFC8CE;
+	z-index:3000;
+}
+</style>			
+<div class="ajukan" ng-hide="ajukan">
+<button type="button" ng-click="close_multiple()" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<button ng-click="close_multiple()" style="float:right;position:absolute;margin-left:630px"><i class="fa fa-times"></i> Batal</button>
+
+<div class="row" style="margin-top:10px;">
+		<div class="col-md-5">
+		
+			<table style="border: 0px solid black !important;">
+			<tr>
+			<td data-ng-repeat="item in items " style="width:120px;height:0%; padding-left:25px">
+			<img src="<?php echo base_url();?>assets/img/{{ item.company_image }}" width="70px" height="70px" ><button style="position:absolute" type="button" data-ng-click="remove(item.index,$index)" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</td>
+			</tr>
+			</table>
+		</div>
+		<div class="col-md-7" style="margin:0px !important">
+		<span title="Details" ng-click="showregisterModal()" ng-href="http://google.com" class="btn btn-cek button tbl custombtncom" style="width: 80%; margin-top: 20px;margin-left:50px; backgrond-color=93E3EE;">Ajukan</span>
+		</div>
+</div>
+<!--
+ <div  data-ng-repeat="item in items ">
+ {{item.nama_produk}}
+ </div>
+ -->
+</div>				
+
 				</div>
 					
 				</div>
@@ -524,12 +647,12 @@ app.controller('customersCtrl', function($scope, $http, $location, $anchorScroll
 		}
 		
 		 //P2P Calculate
-	   $scope.bunga=20/100;
-	 $scope.bulan=12;
-	 $scope.percent=(15* $scope.bulan)/12;
-	 $scope.percentnew=(20* $scope.bulan)/12;
+		$scope.bunga=20/100;
+		$scope.bulan=12;
+		$scope.percent=(15* $scope.bulan)/12;
+		$scope.percentnew=(20* $scope.bulan)/12;
 	  
-	   $scope.isCollapsed = true;
+		$scope.isCollapsed = true;
 	    $scope.dogs = [
         {
             name: "Sparky",
@@ -539,6 +662,118 @@ app.controller('customersCtrl', function($scope, $http, $location, $anchorScroll
             breed: "German Shepard"
         }
     ];
+	   
+	   
+	$scope.items =  [];
+	$scope.ajukan = true;
+	$scope.close_multiple = function(){
+	
+		$scope.items.length = 0; 
+		$scope.ajukan = true;
+		$scope.checkedStatus=false;		
+	
+	}
+	$scope.checkedStatus=[];
+	
+	//Remove item in multiple choice 
+	$scope.remove = function(index_checbox,index) { 
+	 
+	  //remove item in multiple choice
+	  $scope.items.splice(index, 1);   
+	  
+	  //unchecbox
+	  $scope.checkedStatus[index_checbox] = false;	
+	  
+		if (typeof $scope.items[0] == 'undefined') {	
+			$scope.ajukan = true;
+		}
+	  
+	}
+	
+		//Add Ajukan
+		$scope.addItem = function(company_product_id,nama_produk,image,indexs){
+			
+		
+				$scope.ajukan = $scope.ajukan ? false : false;
+
+							var index = -1;
+							$scope.items.forEach(function(obj, i) {
+								if (obj.company_product_id === company_product_id) index = i;
+							});
+							
+							// is currently selected
+							if (index > -1) {
+								$scope.items.splice(index, 1);
+							}
+							// is newly selected
+							else {
+								
+								if ($scope.items.length < 3){
+								 $scope.items.push({
+									company_product_id:company_product_id,	
+									nama_produk: nama_produk,
+									company_image: image,
+									index: indexs,									
+								});
+								}else{
+									alert('maximal tiga produk');
+								}
+							
+							
+							}
+							
+							
+							if (typeof $scope.items[0] == 'undefined') {	
+							$scope.ajukan = true;
+							}
+			
+				//Set Cookie
+			//	$cookieStore.put('items', $scope.items);
+
+		}
+	   	//Show modal Register 
+		$scope.Modalregister = false;
+		$scope.showregisterModal = function(){
+		$scope.Modalregister = !$scope.Modalregister;
+		$scope.ajukan = true;
+		$scope.reg.loan = $scope.total_pinjaman;
+		$scope.reg.codeloan=$scope.codeloan;
+		};
+		//Close modal
+		$scope.cancel = function () {
+		$scope.ajukan = false;
+		};
+		
+		$scope.reg = {};
+		$scope.reg.item=$scope.items;
+		$scope.submitRegister = function() {
+	
+		$scope.ajukan = true;
+
+        $http({
+          method  : 'POST',
+          url     : '<?php echo base_url(); ?>add_order_multiple',
+         data    : $scope.reg, //forms user object
+         headers : {'Content-Type': undefined}  
+         })
+		 .success(function(data) {
+            if (data.status) {
+              // Showing errors.
+			 $scope.Modalregister = false;
+            $scope.Modalthanks = !$scope.Modalthanks;
+            } else {
+             // $scope.message = data.message;
+            }
+          });
+		
+        };
+		$scope.submitThanks = function() {
+	
+			 
+             window.location = "<?php echo base_url(); ?>";
+         
+        };
+		
 	   
 		//Show Modal
 		$scope.showModal = false;
