@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="<?php echo base_url(); ?>/assets/img/favicon.png" type="image/png">
+    <link rel="icon" href="<?php echo base_url(); ?>/assets/img/kredito-logo.png" type="image/png">
 
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -385,8 +385,8 @@ $.validator.addMethod('filesize', function (value, element, param) {
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-               <div class="hidden-xs"> <a class="navbar-brand topnav" href="<?php echo base_url(); ?>"><img src="<?php echo base_url();?>assets/img/logo-rajakredit.png" style="height:55px; width:114px; margin-top:-3px;" ></a></div>
-			   <div class="hidden-lg"> <a class="navbar-brand topnav" href="<?php echo base_url(); ?>"><img src="<?php echo base_url();?>assets/img/logo-rajakredit.png" style="height:40px; width:210px;" ></a></div>
+               <div class="hidden-xs"> <a class="navbar-brand topnav" href="<?php echo base_url(); ?>"><img src="<?php echo base_url();?>assets/img/kredito-logo.png" style="height:30px;width:210px;margin-top: 6px;" ></a></div>
+			   <div class="hidden-lg"> <a class="navbar-brand topnav" href="<?php echo base_url(); ?>"><img src="<?php echo base_url();?>assets/img/kredito-logo.png" style="height:40px; width:210px;" ></a></div>
                 <a class="pull-right" id="balloon2" data-balloon = "<?php if(isset($balloon_message) == '1'){echo $balloon_message;}else{echo '';} ?>"></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -398,9 +398,10 @@ $.validator.addMethod('filesize', function (value, element, param) {
 				<li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pinjaman <span class="caret"></span></a>
                 <ul class="dropdown-menu">
+				 <li><a href="<?php echo base_url(); ?>borrower/application/info">Multiguna</a></li>
                   <li><a href="<?php echo base_url(); ?>kredit-pemilikan-rumah">Kredit Pemilikan Rumah</a></li>
                   <li><a href="<?php echo base_url(); ?>kredit-mobil">Kredit Mobil</a></li>
-				  <li><a href="<?php echo base_url(); ?>">Kredit Motor</a></li>
+				 <!-- <li><a href="<?php //echo base_url(); ?>">Kredit Motor</a></li>-->
                 </ul>
 			
 				</li>
@@ -424,41 +425,33 @@ $.validator.addMethod('filesize', function (value, element, param) {
                     <li>
                         <a href="<?php echo base_url();?>faq">FAQ</a>
                     </li>
-					  <li>
+					<li>
                         <a href="<?php echo base_url();?>kontak">Kontak</a>
                     </li>
+					<?php if(get_cookie('full_name') == ""){ ?>
+					<li>
+                        <a href="<?php echo base_url();?>security/login/">Login</a>
+                    </li>
+					<?php } ?>
                     <!--
                     http://mifsud.me/adding-dropdown-login-form-bootstraps-navbar/
                     -->
+					<?php if(get_cookie('full_name') != ""){ ?>
                     <li class="dropdown" id="balloon1" data-balloon = "<?php if(isset($balloon_message) == '1'){echo $balloon_message;}else{echo '';} ?>" data-justonce="true">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                            <?php if(get_cookie('full_name') != ""){echo get_cookie('full_name');}else{echo 'Login';} ?> <strong class="caret"></strong></a>
+                            <?php if(get_cookie('full_name') != ""){echo get_cookie('full_name');}else{echo '';} ?> <strong class="caret"></strong></a>
                         <div class="dropdown-menu dropdown-signin">
 						
                             <form accept-charset="UTF-8">
                                 <?php if(get_cookie('full_name') == ""){ ?>
-                                    <p id="lbl_message" class="alert alert-danger"></p>
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                        <input id="txt_email" name="txt_email" type="text" placeholder="Email" maxlength="255" class="form-control group-input" />
-                                    </div>
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                                        <input id="txt_password" name="txt_password" type="password" placeholder="Password" maxlength="20" class="password form-control group-input" />
-                                    </div>
-                                    <input id="chk_remember_me" name="chk_remember_me" type="checkbox" value="1" />
-                                    <label for="chk_remember_me"> Ingatkan saya</label>
-                                    <br />
-                                    <button name="submit" class="btn btn-info btn-block" onclick="return screen_check();">Log in</button>
-                                    <a href="<?php echo base_url();?>security/register">Registrasi</a><br />
-                                    <a href="<?php echo base_url();?>security/forgot_my_password">Lupa password</a>
+                               
                                 <?php } else{?>
                                     <li><a href="" data-modal-id="popup_profile" class="dropdown-label"><i class="fa fa-user fa-fw"></i> Profil</a></li>
                                     <li><a href="" data-modal-id="popup_password" class="dropdown-label"><i class="fa fa-gear fa-fw"></i> Ubah Password</a></li>
                                     <li class="divider"></li>
                                     <?php if(get_cookie('user_group') == "B"){ ?>
-                                    <li><a href="<?php echo base_url();?>borrower/application/list" class="dropdown-label"><i class="fa fa-dollar fa-fw"></i> Pinjaman Bisnis</a></li>
-									 <li><a href="<?php echo base_url();?>borrower/application/listproduct" class="dropdown-label"><i class="fa fa-dollar fa-fw"></i> Pinjaman produk</a></li>
+                                    <li><a href="<?php echo base_url();?>borrower/application/list" class="dropdown-label"><i class="fa fa-dollar fa-fw"></i> Pinjaman Multiguna</a></li>
+									 <li><a href="<?php echo base_url();?>borrower/application/listproduct" class="dropdown-label"><i class="fa fa-dollar fa-fw"></i> Pinjaman Produk</a></li>
                                     <?php }
                                     else{ ?>
                                     <li><a href="<?php echo base_url();?>investor/bid/listprogress" class="dropdown-label"><i class="fa fa-line-chart fa-fw"></i> Investasi Saya</a></li>
@@ -473,6 +466,7 @@ $.validator.addMethod('filesize', function (value, element, param) {
                             </form>
                         </div>
                     </li>
+					<?php } ?>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
