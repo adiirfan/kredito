@@ -82,7 +82,7 @@
               <div class="col-sm-3">
                 <div class="footer-element">
                   <span class="typcn typcn-mail"></span>
-                  <p>E-MAIL:<span><a href="">cs@rajakredit.co.id</a></span></p>
+                  <p>E-MAIL:<span><a href="">cs@kredito.co.id</a></span></p>
                 </div>
               </div>
               <!-- FOOTER TOP ELEMENT -->
@@ -185,7 +185,7 @@
     <div class="copyright">
       <div class="row">
         <div class="col-sm-12">
-          <p class="text-center">Copyright PT RajaKredit. All Rights Reserved.</p>
+          <p class="text-center">Copyright PT Kredito. All Rights Reserved.</p>
         </div>
       </div>
     </div>
