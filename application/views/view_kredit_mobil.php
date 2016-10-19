@@ -64,7 +64,19 @@
     background: red;
 }
 
-		</style>
+</style>
+<style>
+.ajukan {
+    position: fixed;
+    bottom: 0;
+    right: 542px;
+    width: 700px;
+	height: 100px;
+	border: 3px solid #E4ECF1;
+	background-color:#BFC8CE;
+	z-index:3000;
+}
+</style>
  <script>
 
 
@@ -153,21 +165,6 @@ $(document).ready(function () {
 			    <div class="tab-content">
 				<div id="bandingkan" class="tab-pane fade in active">
 				<div ng-app="myApp" ng-controller="customersCtrl" ng-init="code_loan=<?php echo $random; ?>;quantity=1;cost=5;value_total=50000000" autoscroll="false">
-				
-				<style>
-.ajukan {
-    position: fixed;
-    bottom: 0;
-    right: 542px;
-    width: 700px;
-	height: 100px;
-	border: 3px solid #E4ECF1;
-	background-color:#BFC8CE;
-	z-index:3000;
-}
-</style>
-
-
 				<br>
 				<!-- FILTER SEARCH
 				<div class="row">
@@ -618,6 +615,7 @@ $(document).ready(function () {
 				<!-- BATAS MODALL -->
 <div class="ajukan" ng-hide="ajukan">
 <button type="button" ng-click="close_multiple()" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<button ng-click="close_multiple()" style="float:right;position:absolute;margin-left:625px"><i class="fa fa-times"></i> Batal</button>
 
 <div class="row" style="margin-top:10px;">
 		<div class="col-md-5">
@@ -746,7 +744,7 @@ app.controller('customersCtrl', function($scope, $http, $location, $anchorScroll
 	
 	//Remove item in multiple choice 
 	$scope.remove = function(index_checbox,index) { 
-	 
+	 alert(index_checbox);
 	  //remove item in multiple choice
 	  $scope.items.splice(index, 1);   
 	  
@@ -883,8 +881,6 @@ app.controller('customersCtrl', function($scope, $http, $location, $anchorScroll
 	$scope.ajukan = true;
 	$scope.reg.loan = $scope.total_pinjaman;
 	$scope.reg.codeloan=$scope.codeloan;
-		
-
     };
 	
 	//Close modal
