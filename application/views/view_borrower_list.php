@@ -59,9 +59,9 @@
 	<div class="row">
 		<div class="col-lg-12">
 		<br>
-<a class="btn btn-default btn-lg small button-apply pull-right" href="<?php echo base_url();?>pilihan"><i class="fa fa-dollar fa-fw"></i> <span class="network-name">Dapatkan Pinjaman Bisnis</span></a>
+<a class="btn btn-default btn-lg small button-apply pull-right" href="<?php echo base_url();?>pilihan"><i class="fa fa-dollar fa-fw"></i> <span class="network-name">Dapatkan Pinjaman Multiguna</span></a>
 			<br>
-			<h3>Kelola data peminjaman bisnis anda</h3>
+			<h3>Kelola data peminjaman multiguna</h3>
 
 			<hr>
 		</div>		
