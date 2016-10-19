@@ -15,35 +15,15 @@ class Borrower extends CI_Controller {
 
      public function option()
     {
-    	
-		
-		if($this->input->post('h_selected_tujuan') != null){
-			$pinjaman=preg_replace("/[^0-9]/", "", $this->input->post('h_amount',true));
-			if($this->input->post('h_selected_tujuan') != '4'){
-			
-			$tenor_mobil=$this->input->post('h_waktu_mobil');
-			$tenor_rumah=$this->input->post('h_waktu_rumah');
-		
-				if($this->input->post('h_selected_tujuan')=='1'){
-					
-					redirect("/kredit-mobil/?tenor=$tenor_mobil&pinjaman=$pinjaman");
-				}
-				else if($this->input->post('h_selected_tujuan')=='2'){
-					
-					redirect("/kredit-pemilikan-rumah/?tenor=$tenor_rumah&pinjaman=$pinjaman");
-				}
-		
-			}else{
-				
+
 				$this->create_loan();
-				if (get_cookie("user_id") != null)
-				{
-					if (get_cookie("user_group") == "B")
+			
+					if (get_cookie("user_group") != "I")
 					{
 						$this->load->model("model_user");
 						$row = $this->model_user->get(get_cookie("user_id"));
 
-						redirect("borrower/application/info");
+						redirect("borrower/application");
 					}
 					else
 					{
@@ -52,39 +32,7 @@ class Borrower extends CI_Controller {
 						$this->load->view('view_borrower_not');
 						$this->load->view('view_footer');	
 					}
-				}
-				else
-				{
-					redirect("borrower/login");
-				}
-				
-			}
 
-		}else{
-			
-			$this->create_loan();
-			if (get_cookie("user_id") != null)
-			{
-				if (get_cookie("user_group") == "B")
-				{
-					$this->load->model("model_user");
-					$row = $this->model_user->get(get_cookie("user_id"));
-
-					redirect("borrower/application/info");
-				}
-				else
-				{
-					$title['title']="Bukan Peminjam";
-					$this->load->view('view_header',$title);
-					$this->load->view('view_borrower_not');
-					$this->load->view('view_footer');	
-				}
-			}
-			else
-			{
-				redirect("borrower/login");
-			}
-		}
     }
 
      public function login($pParam=null)
@@ -352,13 +300,47 @@ class Borrower extends CI_Controller {
     		}
 			case "info":
     		{
+				
+				
+				
+					if($this->input->post('h_selected_tujuan') != null){
+					$pinjaman=preg_replace("/[^0-9]/", "", $this->input->post('h_amount',true));
+					$tenor_mobil=$this->input->post('h_waktu_mobil');
+					$tenor_rumah=$this->input->post('h_waktu_rumah');
+				
+						if($this->input->post('h_selected_tujuan')=='1'){
+							
+							redirect("/kredit-mobil/?tenor=$tenor_mobil&pinjaman=$pinjaman");
+						}
+						else if($this->input->post('h_selected_tujuan')=='2'){
+							
+							redirect("/kredit-pemilikan-rumah/?tenor=$tenor_rumah&pinjaman=$pinjaman");
+						}else{
+								
+							$data['pinjaman']=preg_replace("/[^0-9]/", "", $this->input->post('h_amount',true));
+							$data['tenor']=preg_replace("/[^0-9]/", "", $this->input->post('h_selected_month',true));
 
+							$title['title']="Info pengajuan pinjaman";
+							$this->load->view('view_header',$title);
+							$this->load->view('view_borrower_info', $data);
+							$this->load->view('view_footer');
+							
+						}
+				
+					}else{
+	
+						$data['pinjaman']='5000000';
+						$data['tenor']='3';
+
+						$title['title']="Info pengajuan pinjaman";
+						$this->load->view('view_header',$title);
+						$this->load->view('view_borrower_info', $data);
+						$this->load->view('view_footer');
+						
+					}
+				
     			
-				$data['tes']="10000";
-		    	$title['title']="Info pengajuan pinjaman";
-				$this->load->view('view_header',$title);
-				$this->load->view('view_borrower_info', $data);
-				$this->load->view('view_footer');
+				
     			break;
     		}
 			
