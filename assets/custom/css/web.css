@@ -1,0 +1,620 @@
+/*!
+ * Start Bootstrap - Landing Page Bootstrap Theme (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+body{
+    padding-top: 50px;
+    width: 100%;
+    height: 100%;
+    color: #5C5C76;
+}
+.form-box{
+	box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+/* css for multiple choose FI 
+.ajukan {
+    position: fixed;
+    bottom: 0;
+    right: 542px;
+    width: 700px;
+	height: 100px;
+	border: 3px solid #E4ECF1;
+	background-color:#BFC8CE;
+	z-index:3000;
+}
+*/
+html {
+    width: 100%;
+    height: 100%;
+}
+
+.form-control{
+    padding: 5px 8px;
+    height: 40px;
+    margin: 3px 0px;
+    font-weight: normal;
+	font-size:17px;
+	
+}
+
+.box-shadow {
+  padding: 30px 15px;
+  -webkit-box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -moz-box-shadow:    0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  box-shadow:         0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+
+.btn-outline {
+    color: inherit;
+    background-color: transparent;
+    transition: all .5s;
+}
+
+.btn-primary.btn-outline {
+    color: #428bca;
+}
+
+.group-input{
+    margin-top: 0px;
+}
+
+.input-group{
+    margin: 3px 0px;
+    width: 100%;
+}
+
+.longer{
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 700;
+}
+
+.topnav {
+    font-size: 14px; 
+}
+
+.lead {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.intro-header {
+	background-attachment:fixed;
+    padding-bottom: 50px;
+   
+    color: #f8f8f8;
+    background-image:url(../../img/rajakredit-banner.jpg);
+    background-size: cover;
+
+}
+
+.intro-message {
+    position: relative;
+    padding-top: 20%;
+    padding-bottom: 20%;
+}
+
+.intro-message > h1 {
+    margin: 0;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    font-size: 4em;
+}
+
+.intro-divider {
+    width: 400px;
+    border-top: 1px solid #f8f8f8;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.intro-message > h3 {
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+
+@media(max-width:767px) {
+    .intro-message {
+        padding-bottom: 15%;
+    }
+
+    .intro-message > h1 {
+        font-size: 3em;
+    }
+
+    ul.intro-social-buttons > li {
+        display: block;
+        margin-bottom: 20px;
+        padding: 0;
+    }
+
+    ul.intro-social-buttons > li:last-child {
+        margin-bottom: 0;
+    }
+
+    .intro-divider {
+        width: 100%;
+    }
+}
+
+.network-name {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+.content-section-a {
+    padding: 50px 0;
+    background-color: #fff;
+    /*
+    background-color: #f8f8f8;
+    */
+}
+
+.content-section-a2 {
+    padding: 50px 0;
+    background-color: #F4F4F4;
+}
+
+/*
+.content-section-b {
+    padding: 50px 0;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+}
+*/
+
+.section-heading {
+    margin-bottom: 30px;
+}
+
+.section-heading-spacer {
+    float: center;
+    width: 200px;
+    border-top: 3px solid #e7e7e7;
+}
+
+.banner {
+    padding: 100px 0;
+    color: #f8f8f8;
+    background: url(../../img/banner-bg.jpg) no-repeat center center;
+    background-size: cover;
+}
+
+.banner h2 {
+    margin: 0;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    font-size: 3em;
+}
+
+.banner ul {
+    margin-bottom: 0;
+}
+
+.banner-social-buttons {
+    float: right;
+    margin-top: 0;
+}
+
+@media(max-width:1199px) {
+    ul.banner-social-buttons {
+        float: left;
+        margin-top: 15px;
+    }
+}
+
+@media(max-width:767px) {
+    .banner h2 {
+        margin: 0;
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+        font-size: 3em;
+    }
+
+    ul.banner-social-buttons > li {
+        display: block;
+        margin-bottom: 20px;
+        padding: 0;
+    }
+
+    ul.banner-social-buttons > li:last-child {
+        margin-bottom: 0;
+    }
+}
+
+footer {
+    padding: 50px 0;
+    background-color: #f8f8f8;
+}
+
+p.copyright {
+    margin: 15px 0 0;
+}
+
+/*************** HEADER***********************/
+.dropdown-label{
+    color: #5C5C76;
+}
+
+.dropdown-label:hover{
+    color: #555;
+    text-decoration: none;
+}
+
+.navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse {
+    max-height: 440px;
+}
+
+.navbar-brand {
+        padding: 10px 15px;
+}
+
+/*************** HOME PAGE***********************/
+.newslink{
+    color: #333;
+}
+
+.home-image{
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.428571429;
+}
+
+.btn-circle.btn-lg {
+    width: 50px;
+    height: 50px;
+    padding: 10px 16px;
+    border-radius: 25px;
+    font-size: 18px;
+    line-height: 1.33;
+}
+
+.dropdown-signin{
+    padding: 15px;
+    font-weight: normal;
+    width: 250px;
+}
+
+.dropdown-signin label{
+    font-weight: normal;
+}
+
+.dropdown-signin .input-group-addon:first-child{
+    width: 40px;
+}
+
+.div-address{
+    padding-left: 70px;
+}
+
+@media screen and (max-width: 767px) { 
+    #popup, #popup2, .bMulti {
+        width:95%;
+        margin-top: 20px !important;
+    }
+
+    .div-address{
+        padding-left: 15px;
+    }
+}
+
+.text
+{
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.blue-circle {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background-color: #00BAF2;
+  border: 15px solid #fff;
+  box-shadow: 0 0 0 1px #00BAF2;
+}
+
+.orange-circle {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background-color: #f0ad4e;
+  border: 15px solid #fff;
+  box-shadow: 0 0 0 1px #f0ad4e;
+}
+
+.why-invest{
+    padding-top: 30px;
+}
+
+.why-wrap{
+    margin-left:10px
+}
+
+
+/*************** CONTACT US PAGE***********************/
+/*
+.contact-item{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+@media screen and (max-width: 767px) { 
+    .contact{
+        text-align: center;
+    }
+}
+*/
+
+.inquiry-text
+{
+    font-weight: normal;
+    font-size: 16;
+}
+
+.contact-right-item
+{
+    padding-left:40px;
+}
+
+.contact-item
+{
+    padding-left:10px;
+}
+
+.contact-right-item .form-group i{
+    color: #00BAF2;
+}
+
+.contact-right-item .form-group label{
+    color: #00BAF2;
+}
+
+/*************** ABOUT US PAGE***********************/
+.team-photo
+{
+    width: 150px;
+    padding-bottom: 10px
+}
+
+.font-normal
+{
+    font-weight: 400;
+}
+
+.lead a
+{
+    color:#5C5C76;
+}
+
+.lead a:hover
+{
+    text-decoration: none;
+    color:#333;
+}
+
+.about-header {
+    padding-bottom: 200px;
+    margin-top: -150px;
+    text-align: center;
+    color: #f8f8f8;
+    background-image:url(../../img/tentang-kami-rajakredit.jpg);
+    background-size: cover;
+    margin-bottom: 50px;
+}
+
+.popup-team{
+    text-align: left;
+}
+
+@media screen and (max-width: 767px) { 
+    .popup-team{
+        text-align: center;
+    }
+
+    .about-header {
+        margin-top: 0px;
+    }
+}
+
+/*************** Service PAGE***********************/
+.service-header {
+    padding-bottom: 50px;
+    padding-left:80px;
+    /*margin-top: -150px;*/
+    text-align: left;
+    color: #f8f8f8;
+    background-image:url(../../img/service.jpg);
+    background-size: cover;
+    margin-bottom: 50px;
+}
+
+.service-divider {
+    width: 450px;
+    border-top: 1px solid #f8f8f8;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    margin-left: 0px;
+}
+
+@media screen and (max-width: 767px) { 
+
+    .service-header {
+        padding-left:0px;
+        text-align: center;
+    }
+
+    .service-divider {
+        width: 100%;
+    }
+
+}
+
+
+/*************** FAQ PAGE***********************/
+.div-center{
+    text-align:center;
+}
+
+.left-menu
+{
+    font-size: 30px;
+    font-weight: normal;
+}
+
+.panel-heading {
+    padding: 6px 15px;
+}
+
+.panel-heading a{
+
+}
+
+.panel-heading a:hover{
+    text-decoration: none;
+}
+
+
+.panel-heading i{
+    margin-right: 15px;
+}
+
+.panel-body
+{
+    padding-left: 14px;
+    font-weight: normal;
+}
+
+@media screen and (max-width: 767px) { 
+    .panel-heading i{
+        display: none;
+    }
+    .panel-body
+    {
+      
+        font-weight: normal;
+    }
+    .panel-heading {
+    padding: 6px 0px;
+}
+}
+
+.hr-darker{
+        border-top: 1px solid #D2D2D2;
+}
+
+/*************** REGISTER PAGE***********************/
+.register .alert{
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.register .input-group-addon:first-child{
+    width: 40px;
+}
+
+
+/*
+.float-img{
+    position: fixed;
+    top: 50px;
+    right: 50px;
+    width: 200px;
+    background-image:url(../../img/logo.png);
+    z-index: 5000;
+    height: 70px;
+}
+*/
+
+/*************** MANAGE MY LOAN / MANAGE MY INVESTMENT***********************/
+.desktop{
+  display: table-cell;
+}
+
+.desktop .btn{
+    margin-bottom: 3px;
+}
+
+.mobile{
+    display: none;
+}
+
+@media screen and (max-width: 767px) { 
+  .desktop{
+    display: none
+  }
+
+  .mobile{
+    display: table-cell;
+  }
+
+  .mobile .div_table{
+    border-style: solid;
+    border-width: 1px;
+    border-color: #C1CDE0;
+    width: 100%;
+    height: 100%;
+    display: table;
+  }
+
+  .mobile .div_table .div_row{
+    display:table-row;
+   }
+
+   .mobile .div_table .div_detail{
+    width:70%;
+    display:table-cell;
+    padding: 5px;
+  }
+
+  .mobile label
+  {
+    margin-bottom: 0px;
+  }
+
+  .mobile .form-control-static{
+    font-weight: normal;
+    padding-top: 0px;
+  }
+
+  .mobile .form-control-static2 {
+        font-weight: normal;
+        padding-top: 0px;
+        margin-bottom: 0px;
+    }
+
+}
+
+#tbl{
+    font-weight: normal;
+}
+
+.button-apply{
+    margin-top:10px;
+}
+
+
+.progress{
+    margin-bottom: 0px;
+}
+.progress-bar{
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.7);
+}

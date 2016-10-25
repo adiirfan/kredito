@@ -1,0 +1,13 @@
+[18-Oct-2016 09:14:18 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/kreditoco/public_html/temp/application/views/view_header.php on line 439
+[21-Oct-2016 08:25:47 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/kreditoco/public_html/temp/application/modules/backend/views/submission_loan.php on line 63
+[24-Oct-2016 03:27:51 UTC] PHP Parse error:  syntax error, unexpected ')' in /home/kreditoco/public_html/temp/application/controllers/borrower.php on line 454
+[24-Oct-2016 04:04:17 UTC] PHP Parse error:  syntax error, unexpected '{' in /home/kreditoco/public_html/temp/application/modules/backend/views/submission_loan.php on line 58
+[24-Oct-2016 04:04:28 UTC] PHP Parse error:  syntax error, unexpected '{' in /home/kreditoco/public_html/temp/application/modules/backend/views/submission_loan.php on line 58
+[24-Oct-2016 05:09:29 UTC] PHP Fatal error:  Call to a member function num_rows() on null in /home/kreditoco/public_html/temp/application/models/model_loan_document.php on line 18
+[24-Oct-2016 05:11:18 UTC] PHP Fatal error:  Call to undefined method Model_loan_document::num_rows() in /home/kreditoco/public_html/temp/application/models/model_loan_document.php on line 18
+[24-Oct-2016 05:13:46 UTC] PHP Fatal error:  Can't use method return value in write context in /home/kreditoco/public_html/temp/application/models/model_loan_document.php on line 19
+[24-Oct-2016 05:14:33 UTC] PHP Fatal error:  Can't use method return value in write context in /home/kreditoco/public_html/temp/application/models/model_loan_document.php on line 19
+[24-Oct-2016 05:14:49 UTC] PHP Fatal error:  Can't use method return value in write context in /home/kreditoco/public_html/temp/application/models/model_loan_document.php on line 19
+[24-Oct-2016 05:15:27 UTC] PHP Fatal error:  Can't use method return value in write context in /home/kreditoco/public_html/temp/application/models/model_loan_document.php on line 19
+[24-Oct-2016 05:17:09 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/kreditoco/public_html/temp/application/modules/backend/views/view_loan_detail.php on line 641
+[24-Oct-2016 05:19:56 UTC] PHP Fatal error:  Call to a member function num_rows() on null in /home/kreditoco/public_html/temp/application/models/model_loan_document.php on line 19
